@@ -19,15 +19,7 @@ public class UserProfile {
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "language_id", nullable = false)
-    private Language language;
+    private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "country_id", nullable = false)
-    private Country country;
-
-    @ManyToOne
-    @JoinColumn(name = "time_zone_id", nullable = false)
-    private TimeZone timeZone;
+    private String picture;
 }
