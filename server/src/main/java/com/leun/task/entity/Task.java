@@ -1,5 +1,6 @@
 package com.leun.task.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.leun.user.entity.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,8 +11,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import java.time.LocalDateTime;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor
 public class Task {
 
     @Id
@@ -26,9 +29,8 @@ public class Task {
 
     private String description;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime dueDate;
-
-    private Boolean isAllDay;
 
     private Boolean isCompleted;
 

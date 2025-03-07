@@ -1,5 +1,6 @@
 package com.leun.event.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.leun.user.entity.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,9 +15,11 @@ import jakarta.persistence.PrePersist;
 import java.time.LocalDateTime;
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,11 +35,11 @@ public class Event {
 
     private String location;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endTime;
-
-    private Boolean isAllDay;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -64,5 +67,17 @@ public class Event {
         Color(String hexCode) {
             this.hexCode = hexCode;
         }
+    }
+
+    public Event(User user, String title, String description, String location,
+        LocalDateTime startTime,
+        LocalDateTime endTime, Color color) {
+        this.user = user;
+        this.title = title;
+        this.description = description;
+        this.location = location;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.color = color;
     }
 }
