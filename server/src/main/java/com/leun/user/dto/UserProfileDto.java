@@ -8,20 +8,29 @@ public class UserProfileDto {
 
     @Getter
     @Setter
-    public static class Get {
+    public static class Response {
         private String name;
-        private MultipartFile picture;
+        private String image;
+
+        public Response(String name, String image) {
+            this.name = name;
+            this.image = image;
+        }
     }
 
-    @Getter
-    @Setter
-    public static class PostName {
-        private String name;
-    }
+    public static class Request {
 
-    @Getter
-    @Setter
-    public static class PostPicture {
-        private  MultipartFile picture;
+        @Getter
+        @Setter
+        public static class Name {
+            private String name;
+        }
+
+        @Getter
+        @Setter
+        public static class Image {
+            private  MultipartFile image;
+        }
+
     }
 }
