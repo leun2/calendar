@@ -16,9 +16,13 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.List;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
 @Table(name = "users")
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -33,6 +37,10 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ProviderType provider;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserRole userRole;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private UserProfile userProfile;
@@ -54,8 +62,20 @@ public class User {
         this.createdAt = LocalDateTime.now();
     }
 
+    public User(String email, String password, ProviderType provider, UserRole userRole) {
+        this.email = email;
+        this.password = password;
+        this.provider = provider;
+        this.userRole = userRole;
+    }
+
     public enum ProviderType {
         LOCAL,
         GOOGLE
+    }
+
+    public enum UserRole {
+        ROLE_USER,
+        ROLE_ADMIN;
     }
 }
