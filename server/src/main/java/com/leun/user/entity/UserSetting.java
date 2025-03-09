@@ -5,10 +5,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
 public class UserSetting {
 
     @Id
@@ -19,15 +22,16 @@ public class UserSetting {
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "language_id", nullable = false)
-    private Language language;
+    private String language;
 
-    @ManyToOne
-    @JoinColumn(name = "country_id", nullable = false)
-    private Country country;
+    private String country;
 
-    @ManyToOne
-    @JoinColumn(name = "time_zone_id", nullable = false)
-    private TimeZone timeZone;
+    private String timezone;
+
+    public UserSetting(User user, String language, String country, String timezone) {
+        this.user = user;
+        this.language = language;
+        this.country = country;
+        this.timezone = timezone;
+    }
 }
