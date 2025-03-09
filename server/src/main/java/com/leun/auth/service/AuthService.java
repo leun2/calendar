@@ -25,7 +25,7 @@ public class AuthService {
     private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
 
-    public LoginDto.Response login(LoginDto.Request request) {
+    public LoginDto.Response login(LoginDto.Request request) throws Exception {
         User user = userService.findUserByEmail(request.getEmail());
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {

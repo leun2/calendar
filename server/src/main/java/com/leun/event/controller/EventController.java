@@ -1,44 +1,60 @@
 package com.leun.event.controller;
 
 import com.leun.event.dto.EventDto;
-import org.springframework.http.HttpStatus;
+import com.leun.event.service.EventService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/v1")
+@RequiredArgsConstructor
 public class EventController {
 
-    @GetMapping("/event/{event-id}")
-    public ResponseEntity<EventDto.Get> getEvent(@PathVariable("event-id") Integer eventId) {
+    private final EventService eventService;
 
-        return ResponseEntity.ok(new EventDto.Get());
+    @GetMapping("/event/{event-id}")
+    public ResponseEntity<EventDto.Response> getEvent(
+        @AuthenticationPrincipal UserDetails userDetails,
+        @PathVariable("event-id") Long id) throws Exception {
+
+        EventDto.Response response = eventService.getEventById(id, userDetails.getUsername());
+
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/event")
-    public ResponseEntity<String> createEvent(@RequestBody EventDto.Post eventDto) {
+    public void createEvent(
+        @AuthenticationPrincipal UserDetails userDetails,
+        @RequestBody EventDto.Request request) throws Exception {
 
-        return ResponseEntity.status(HttpStatus.CREATED).body("Event Created Successfully");
+        eventService.createEvent(userDetails.getUsername(), request);
     }
 
 
-    @PatchMapping("/event/edit/{event-id}")
-    public ResponseEntity<String> updateEvent(@RequestBody EventDto.Post eventDto,
-        @PathVariable("event-id") Integer eventId) {
+    @PutMapping("/event/{event-id}")
+    public void updateEvent(
+        @AuthenticationPrincipal UserDetails userDetails,
+        @PathVariable("event-id") Long id,
+        @RequestBody EventDto.Request request) throws Exception {
 
-        return ResponseEntity.status(HttpStatus.OK).body("Event Created Successfully");
+        eventService.updateEventById(id, userDetails.getUsername(), request);
     }
 
     @DeleteMapping("event/{event-id}")
-    public ResponseEntity<String> deleteEvent(@PathVariable("event-id") Integer eventId) {
+    public void deleteEvent(
+        @AuthenticationPrincipal UserDetails userDetails,
+        @PathVariable("event-id") Long id) throws Exception {
 
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Event Deleted Successfully");
+        eventService.deleteEventById(id, userDetails.getUsername());
     }
 }

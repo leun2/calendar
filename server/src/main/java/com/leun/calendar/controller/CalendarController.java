@@ -1,7 +1,11 @@
 package com.leun.calendar.controller;
 
 import com.leun.calendar.dto.CalendarDto;
+import com.leun.calendar.service.CalendarService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,24 +13,40 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/v1")
+@RequiredArgsConstructor
 public class CalendarController {
 
-    @GetMapping("/calendar")
-    public ResponseEntity<CalendarDto> getCalendar() {
+    private final CalendarService calendarService;
 
-        return ResponseEntity.ok(new CalendarDto());
+    @GetMapping("/calendar")
+    public ResponseEntity<CalendarDto> getCalendar(@AuthenticationPrincipal UserDetails userDetails)
+        throws Exception {
+
+        CalendarDto calendar = calendarService.findCalendar(userDetails.getUsername());
+
+        return ResponseEntity.ok(calendar);
     }
 
     @GetMapping("/calendar/{unit}")
-    public ResponseEntity<CalendarDto> getCalendarByUnit(@PathVariable("unit") String unit) {
+    public ResponseEntity<CalendarDto> getCalendarByUnit(
+        @AuthenticationPrincipal UserDetails userDetails,
+        @PathVariable("unit") String unit) throws Exception {
 
-        return ResponseEntity.ok(new CalendarDto());
+        CalendarDto calendar = calendarService.findCalendarByUnit(userDetails.getUsername(), unit);
+
+        return ResponseEntity.ok(calendar);
     }
 
     @GetMapping("/calendar/{unit}/{year}/{month}/{day}")
-    public ResponseEntity<CalendarDto> getCalendarByDate(@PathVariable("unit") String unit,
-        @PathVariable("year") int year, @PathVariable("month") int month, @PathVariable("day") int day) {
+    public ResponseEntity<CalendarDto> getCalendarByDate(
+        @AuthenticationPrincipal UserDetails userDetails,
+        @PathVariable("unit") String unit,
+        @PathVariable("year") Integer year,
+        @PathVariable("month") Integer month,
+        @PathVariable("day") Integer day) throws Exception {
 
-        return ResponseEntity.ok(new CalendarDto());
+        CalendarDto calendar = calendarService.findCalendarByDate(userDetails.getUsername(), unit, year, month, day);
+
+        return ResponseEntity.ok(calendar);
     }
 }

@@ -2,64 +2,108 @@ package com.leun.user.controller;
 
 import com.leun.user.dto.UserDto;
 import com.leun.user.dto.UserProfileDto;
+import com.leun.user.dto.UserSettingDto;
+import com.leun.user.service.UserService;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/v1")
 public class UserController {
 
-    @GetMapping("/profile/{user-id}")
-    public void getUserProfile(@PathVariable("user-id") Long userId) {
+    private final UserService userService;
 
-    }
-
-    @GetMapping("/setting/{user-id}")
-    public void getUserSetting(@PathVariable("user-id") Long userId) {
-
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @PostMapping("/user")
-    public void createUser(UserDto userDto) {
-
+    public void registerUser(@RequestBody @Valid UserDto.Request request) throws Exception {
+        userService.registerUser(request);
     }
 
-    @PatchMapping("/user/profile/edit/name/{user-id}")
-    public void updateUserProfileName(@PathVariable("user-id") Long userId,
-        @RequestBody UserProfileDto.PostName userProfileDto) {
+    @GetMapping("/user/profile")
+    public ResponseEntity<UserProfileDto.Response> getUserProfile(
+        @AuthenticationPrincipal UserDetails userDetails) throws Exception {
 
+        UserProfileDto.Response response =
+            userService.getUserProfileByEmail(userDetails.getUsername());
+
+        return ResponseEntity.ok(response);
     }
 
-    @PatchMapping("/user/profile/edit/picture/{user-id}")
-    public void updateUserProfilePicture(@PathVariable("user-id") Long userId,
-        @RequestBody UserProfileDto.PostPicture userProfileDto) {
+    @GetMapping("/user/setting")
+    public ResponseEntity<UserSettingDto.Response> getUserSetting(
+        @AuthenticationPrincipal UserDetails userDetails) throws Exception {
 
+        UserSettingDto.Response response =
+            userService.getUserSettingByEmail(userDetails.getUsername());
+
+        return ResponseEntity.ok(response);
     }
 
-    @PatchMapping("/user/setting/edit/language/{user-id}")
-    public void updateUserSettingLanguage(@PathVariable("user-id") Long userId, String language) {
+    @PatchMapping("/user/profile/name")
+    public ResponseEntity<UserProfileDto.Response> updateUserProfileName(
+        @AuthenticationPrincipal UserDetails userDetails,
+        @RequestBody UserProfileDto.Request.Name userProfileDto) throws Exception {
 
+        UserProfileDto.Response response =
+            userService.updateUserProfileName(userDetails.getUsername(), userProfileDto.getName());
+
+        return ResponseEntity.ok(response);
     }
 
-    @PatchMapping("/user/setting/edit/country/{user-id}")
-    public void updateUserSettingCountry(@PathVariable("user-id") Long userId, String country) {
+//    @PatchMapping("/user/profile/image")
+//    public void updateUserProfileImage(@AuthenticationPrincipal UserDetails userDetails,
+//        @RequestBody UserProfileDto.Request.Image userProfileDto) {
+//
+//    }
 
+    @PatchMapping("/user/setting/language")
+    public ResponseEntity<UserSettingDto.Response> updateUserSettingLanguage(
+        @AuthenticationPrincipal UserDetails userDetails,
+        @RequestBody UserSettingDto.Request.Language request) throws Exception {
+
+        UserSettingDto.Response response =
+            userService.updateUserSettingLanguage(userDetails.getUsername(), request.getLanguage());
+
+        return ResponseEntity.ok(response);
     }
 
-    @PatchMapping("/user/setting/edit/timezone/{user-id}")
-    public void updateUserSettingTimeZone(@PathVariable("user-id") Long userId, String timeZone) {
+    @PatchMapping("/user/setting/country")
+    public ResponseEntity<UserSettingDto.Response> updateUserSettingCountry(
+        @AuthenticationPrincipal UserDetails userDetails,
+        @RequestBody UserSettingDto.Request.Country request) throws Exception {
 
+        UserSettingDto.Response response =
+            userService.updateUserSettingCountry(userDetails.getUsername(), request.getCountry());
+
+        return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("/user/{user-id}")
-    public void deleteUser(@PathVariable("user-id") Long userId) {
+    @PatchMapping("/user/setting/timezone")
+    public ResponseEntity<UserSettingDto.Response> updateUserSettingTimezone(
+        @AuthenticationPrincipal UserDetails userDetails,
+        @RequestBody UserSettingDto.Request.Timezone request) throws Exception {
 
+        UserSettingDto.Response response =
+            userService.updateUserSettingTimezone(userDetails.getUsername(), request.getTimezone());
+
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/user")
+    public void deleteUser(@AuthenticationPrincipal UserDetails userDetails) throws Exception {
+
+        userService.removeUser(userDetails.getUsername());
     }
 }

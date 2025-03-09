@@ -21,7 +21,8 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
 
     @PostMapping("/login")
-    public ResponseEntity<LoginDto.Response> login(@RequestBody LoginDto.Request request) {
+    public ResponseEntity<LoginDto.Response> login(@RequestBody LoginDto.Request request)
+        throws Exception {
 
         authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
