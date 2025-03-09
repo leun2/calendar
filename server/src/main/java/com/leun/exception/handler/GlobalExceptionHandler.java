@@ -1,5 +1,6 @@
 package com.leun.exception.handler;
 
+import com.leun.exception.InvalidDateException;
 import com.leun.exception.Response.ErrorResponse;
 import com.leun.exception.UnauthorizedAccessException;
 import lombok.RequiredArgsConstructor;
@@ -14,10 +15,16 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(UnauthorizedAccessException.class)
-    @ResponseStatus(HttpStatus.UNAUTHORIZED) // HTTP 404 상태 코드 반환
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ResponseBody
     public ErrorResponse UnauthorizedAccessException(UnauthorizedAccessException e) {
-        return new ErrorResponse("UNAUTHORIZED_ACCESS", e.getMessage());
+        return new ErrorResponse("Unauthorized Access", e.getMessage());
     }
 
+    @ExceptionHandler(InvalidDateException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ErrorResponse InvalidDateException(InvalidDateException e) {
+        return new ErrorResponse("Invalid Date", e.getMessage());
+    }
 }
