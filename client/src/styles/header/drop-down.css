@@ -1,0 +1,76 @@
+.drop-down {
+    text-align: center;
+    margin-top: 0px;
+    position: relative;
+}
+
+.drop-down-button {
+    position: relative;
+    background: #F8FAFD;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.drop-down-button:hover {
+    background: #e4e4e4; /* 마우스 오버 시 배경 변경 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 마우스 오버 시 그림자 */
+}
+
+.drop-down-button:active {
+    background: #dddddd; /* 클릭 시 더 진한 배경색 */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* 클릭 시 그림자 더 강조 */
+}
+
+
+/* 목록 기본 스타일 (숨김 상태) */
+.drop-down-list {
+    position: absolute;
+    left: 110%;
+    transform: translateX(-50%);
+    width: 100px; /* 리스트 너비 */
+    list-style: none;
+    padding: 7px 0px;
+    margin-top: 10px;
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+    background-color: #f8fafb;
+    cursor: pointer;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+    
+    /* 애니메이션 효과 */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.list-item {
+    display: flex;
+    justify-content: space-between; /* 양쪽 정렬 */
+    align-items: center;
+    padding: 10px 10px; /* 항목 간 간격 추가 */
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* 마우스 호버 시 스타일 */
+.list-item:hover {
+    background: #e4e4e4; /* 더 어두운 배경 */
+    border-radius: 0px;
+}
+
+.list-item:active {
+    background: #dddddd; /* 클릭 시 더 진한 배경색 */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* 클릭 시 그림자 더 강조 */
+    transition: transform 0.1s ease-in-out; /* 부드러운 전환 효과 추가 */
+}
+
+/* 목록이 열릴 때 스타일 */
+.drop-down-list.open {
+    opacity: 1;
+    visibility: visible;
+}
