@@ -1,0 +1,92 @@
+.mini-calendar {
+    background-color: #f8fafb;
+    padding: 20px 0px 0px 50px
+}
+
+.mini-calendar-item {
+    cursor: pointer;
+}
+
+.calendar-header {
+    background-color: #f8fafb;
+    color: black;
+    display: flex;
+    align-items: center;
+    padding-left: 8px;
+}
+
+.calendar-year-month {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.mini-calendar-table-head th {
+    font-weight: normal;
+    cursor: default;
+    font-size: 10px;
+}
+
+.mini-calendar-table-body td {
+    text-align: center; /* 가운데 정렬 */
+    vertical-align: middle; /* 세로 중앙 정렬 */
+    font-size: 10px;
+}
+
+.mini-calendar-table-body td:hover {
+    border-radius: 100%;
+    background: #e4e4e4; /* 마우스 오버 시 배경 변경 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 마우스 오버 시 그림자 */
+}
+
+.mini-calendar-table-body td:active {
+    background: #dddddd; /* 클릭 시 더 진한 배경색 */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* 클릭 시 그림자 더 강조 */
+}
+
+.calendar-table {
+    width: 150px;
+    height: 150px;
+    background-color: #f8fafb;
+    color: black;
+}
+
+.month-shifter {
+    display: flex;  /* 버튼을 가로로 정렬 */
+    align-items: center;  /* 세로 중앙 정렬 */
+    gap: 2px;  /* 버튼 간격 조정 */
+    padding-left: 10px;
+    
+}
+
+.calendar-shift-button {
+    position: relative;
+    background: #F8FAFD;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.calendar-shift-button:hover {
+    background: #e4e4e4; /* 마우스 오버 시 배경 변경 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 마우스 오버 시 그림자 */
+}
+
+.calendar-shift-button:active {
+    background: #dddddd; /* 클릭 시 더 진한 배경색 */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* 클릭 시 그림자 더 강조 */
+}
+
+.today {
+    background-color: #305de2;
+    border-radius: 50%;
+    color: white;
+}
+
+.selected {
+    background-color: #a8beff;
+    border-radius: 50%;
+}
