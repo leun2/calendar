@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import 'styles/header/drop-down.css'
+import 'styles/header/settings-drop-down.css'
 
-interface DropDownProps {
+interface ButtonProps {
     isOpen: boolean;
     onToggle: () => void;
 }
 
-const DropDown: React.FC<DropDownProps> = ({ isOpen, onToggle }) => {
+const SettingsDropDown: React.FC<ButtonProps> = ({ isOpen, onToggle }) => {
 
     const handleItemClick = (item: string) => {
         onToggle();
@@ -31,4 +31,4 @@ const DropDown: React.FC<DropDownProps> = ({ isOpen, onToggle }) => {
     );
 }   
 
-export default DropDown;
+export default SettingsDropDown;
