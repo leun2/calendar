@@ -1,0 +1,44 @@
+.today-button {
+    position: relative;
+    background: #F8FAFB; /* 버튼 배경색 */
+    color: rgb(0, 0, 0); /* 버튼 텍스트 색 */
+    padding: 10px 20px; /* 버튼 내 여백 */
+    border-radius: 20px;
+    border: 1px solid #b3b3b3; /* 테두리 추가 (두께 2px, 색상 #0056b3) */
+    cursor: pointer;
+    transition: border 0.3s ease;
+}
+
+.today-button:hover {
+    background: #e4e4e4; /* 마우스 오버 시 배경 변경 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 마우스 오버 시 그림자 */
+}
+
+.today-button:active {
+    background: #dddddd; /* 클릭 시 더 진한 배경색 */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* 클릭 시 그림자 더 강조 */
+}
+
+.tooltip {
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: black;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+
+    z-index: 9999; /* 다른 요소 위에 표시 */
+}
+
+.today-button:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
