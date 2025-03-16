@@ -1,6 +1,7 @@
 .view-selector {
     text-align: center;
     margin-top: 0px;
+    margin-right: 0px;
     position: relative;
 }
 
@@ -60,6 +61,8 @@
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
+
+    z-index: 9999; /* 다른 요소 위에 표시 */
 }
 
 .list-item {

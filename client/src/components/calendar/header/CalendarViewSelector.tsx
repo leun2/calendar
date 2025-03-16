@@ -1,12 +1,12 @@
 import React, { ChangeEvent, useState } from 'react';
-import 'styles/header/view-selector.css'
+import 'styles/header/calendar-view-selector.css'
 
-interface ViewSelectorProps {
+interface ButtonProps {
   isOpen: boolean;
   onToggle: () => void;
 }       
 
-const ViewSelector: React.FC<ViewSelectorProps> = ({ isOpen, onToggle }) => {
+const CalendarViewSelector: React.FC<ButtonProps> = ({ isOpen, onToggle }) => {
   const [selectedItem, setSelectedItem] = useState("일");
 
   const handleItemClick = (item: string) => {
@@ -48,4 +48,4 @@ const ViewSelector: React.FC<ViewSelectorProps> = ({ isOpen, onToggle }) => {
   );
 };
 
-export default ViewSelector;
+export default CalendarViewSelector;
