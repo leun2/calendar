@@ -1,0 +1,60 @@
+.shift-button {
+    position: relative;
+    background: #F8FAFD;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.shift-button:hover {
+    background: #e4e4e4; /* 마우스 오버 시 배경 변경 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 마우스 오버 시 그림자 */
+}
+
+.shift-button:active {
+    background: #dddddd; /* 클릭 시 더 진한 배경색 */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* 클릭 시 그림자 더 강조 */
+}
+
+.icon-wrapper svg {
+    fill: black; /* 아이콘 색상 */
+    width: 24px;
+    height: 24px;
+}
+
+.tooltip {
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: black;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+    z-index: 9999; /* 다른 요소 위에 표시 */
+}
+
+.tooltip-wrapper {
+    position: relative;
+}
+
+.shift-button:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.date-shifter {
+    display: flex;  /* 버튼을 가로로 정렬 */
+    align-items: center;  /* 세로 중앙 정렬 */
+    gap: 4px;  /* 버튼 간격 조정 */
+}
