@@ -1,0 +1,95 @@
+.create-schedule {
+    position: relative;
+}
+
+/* 버튼 스타일 */
+.create-schedule-button {
+    display: flex;
+    justify-content: space-between; /* 텍스트 왼쪽 정렬, 아이콘 오른쪽 */
+    align-items: center;
+    background: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 5px 10px;
+    min-width: 100px;
+    min-height: 50px;
+    border-radius: 20px;
+    border: 1px solid #b3b3b3;
+    cursor: pointer;
+    transition: border 0.3s ease;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    margin-top: 30px;
+    margin-left: 20%;
+}
+
+.create-schedule-button:hover {
+    background: #f7f7ff; /* 마우스 오버 시 배경 변경 */
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.create-schedule-button:active {
+    background: #ededff; /* 클릭 시 더 진한 배경색 */
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* 아이콘 스타일 */
+.create-button-text {
+    flex-grow: 1; /* 텍스트가 왼쪽에 정렬되도록 설정 */
+    text-align: left; /* 텍스트를 왼쪽 정렬 */
+    font-size: 10px;
+}
+
+.create-icon {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.button-icon {
+    margin-left: 10px;
+    font-size: 8px;
+}
+
+/* 목록 기본 스타일 (숨김 상태) */
+.create-schedule-list {
+    position: absolute;
+    top: 40px;
+    left: 50px;
+    width: 70px; /* 리스트 너비 */
+    list-style: none;
+    padding: 7px 0px;
+    border: 1px solid #e1e1e1;
+    border-radius: 3px;
+    background-color: #f8fafb;
+    cursor: pointer;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+    
+    /* 애니메이션 효과 */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* 목록이 열릴 때 스타일 */
+.create-schedule-list.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.list-item {
+    display: flex;
+    justify-content: space-between; /* 양쪽 정렬 */
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* 마우스 호버 시 스타일 */
+.list-item:hover {
+    background: #e4e4e4; /* 더 어두운 배경 */
+    border-radius: 0px;
+}
+
+.list-item:active {
+    background: #dddddd; /* 클릭 시 더 진한 배경색 */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* 클릭 시 그림자 더 강조 */
+    transition: transform 0.1s ease-in-out; /* 부드러운 전환 효과 추가 */
+}
