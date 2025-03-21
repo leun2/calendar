@@ -16,8 +16,11 @@ const CalendarByDay: React.FC = () => {
   }, []);
 
   const timezone = "GMT+09";
-  const dayByWeek = "목";
-  const today = "20";
+  const date = new Date();
+  const dayByWeek = ["일", "월", "화", "수", "목", "금", "토"][date.getDay()]; // 요일
+  const today = date.getDate(); // 날짜
+
+  console.log(date + " " + today);
 
   const hours = [
     "오전 1시",
@@ -49,15 +52,18 @@ const CalendarByDay: React.FC = () => {
   const quarter = ["15", "30", "45", "00"];
 
   const events = [
-    { id: 1, title: "회의", startTime: "09:00", endTime: "10:30" },
-    { id: 2, title: "개발 작업", startTime: "09:30", endTime: "11:00" },
-    { id: 3, title: "점심 약속", startTime: "12:00", endTime: "13:45" },
-    { id: 4, title: "코드 리뷰", startTime: "09:45", endTime: "10:15" },
-    { id: 5, title: "회의", startTime: "16:30", endTime: "18:00" },
+    { id: 1, title: "회의", startTime: "2025-03-22 09:00", endTime: "2025-03-22 10:30" },
+    { id: 2, title: "개발 작업", startTime: "2025-03-22 09:30", endTime: "2025-03-22 11:00" },
+    { id: 3, title: "점심 약속", startTime: "2025-03-22 12:00", endTime: "2025-03-22 13:45" },
+    { id: 4, title: "코드 리뷰", startTime: "2025-03-22 09:45", endTime: "2025-03-22 10:15" },
+    { id: 5, title: "회의", startTime: "2025-03-22 16:30", endTime: "2025-03-22 18:00" },
   ];
 
+
+  
   // 시간대 인덱스 계산 함수
   const getHourIndex = (time: string) => {
+    
     const [hour, minute] = time.split(":");
     const minuteValue = parseInt(minute);
 
@@ -72,8 +78,8 @@ const CalendarByDay: React.FC = () => {
     const maxWidth = 700; // 화면 너비(%)
 
     events.forEach((event, index) => {
-      const startIdx = getHourIndex(event.startTime);
-      const endIdx = getHourIndex(event.endTime);
+      const startIdx = getHourIndex(event.startTime.split(" ")[1]);
+      const endIdx = getHourIndex(event.endTime.split(" ")[1]);
       const topPosition = startIdx * 40.7;
       const height = (endIdx - startIdx) * 40.7;
 
@@ -97,6 +103,7 @@ const CalendarByDay: React.FC = () => {
 
     return positions;
   };
+
   const eventPositions = calculateEventPosition(events);
 
   return (
@@ -116,8 +123,8 @@ const CalendarByDay: React.FC = () => {
           </div>
         </div>
         <div style={{ width: "92%", height: "100%", display: "flex" }}>
-          <div style={{ padding: "0px 0px 0px 10px" }}>
-            <div className="day-calendar-day-by-week">{dayByWeek}</div>
+          <div style={{ padding: "10px 0px 0px 10px" }}>
+            <div className="day-calendar-day-of-the-week">{dayByWeek}</div>
             <div className="day-calendar-day">{today}</div>
           </div>
         </div>
@@ -150,8 +157,9 @@ const CalendarByDay: React.FC = () => {
 
         <div className="day-calendar-schedule">
           {events.map((event, index) => {
-            const startIdx = getHourIndex(event.startTime);
-            const endIdx = getHourIndex(event.endTime);
+          
+            const startIdx = getHourIndex(event.startTime.split(" ")[1]);
+            const endIdx = getHourIndex(event.endTime.split(" ")[1]);
             const topPosition = startIdx * 40.7;
             const height = (endIdx - startIdx) * 40.7;
             const { leftPosition } = eventPositions[index];
@@ -172,13 +180,13 @@ const CalendarByDay: React.FC = () => {
               >
                 {isShortEvent ? (
                   <span>
-                    {event.title} {event.startTime} ~ {event.endTime}
+                    {event.title} {event.startTime.split(" ")[1]} ~ {event.endTime.split(" ")[1]}
                   </span>
                 ) : (
                   <>
                     <span>{event.title}</span>
                     <span>
-                      {event.startTime} ~ {event.endTime}
+                      {event.startTime.split(" ")[1]} ~ {event.endTime.split(" ")[1]}
                     </span>
                   </>
                 )}
@@ -196,13 +204,7 @@ const CalendarByDay: React.FC = () => {
                   `${new Date().getHours()}:${
                     Math.floor(new Date().getMinutes() / 15) * 15
                   }` === timeString;
-                console.log(
-                  `${new Date().getHours()}:${
-                    Math.floor(new Date().getMinutes() / 15) * 15
-                  }`
-                );
-                console.log(timeString);
-                console.log(isCurrentTime);
+
                 return (
                   <div>
                     {isCurrentTime ? (
