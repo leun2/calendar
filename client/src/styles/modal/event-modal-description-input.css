@@ -1,0 +1,30 @@
+.description-input:empty::before {
+    content: attr(description-placeholder);
+    color: #aaa;
+    pointer-events: none;
+    display: block;
+}
+
+.description-input-wrapper {
+    width: 80%;
+    min-height: 32px;
+    border-radius: 0px 0px 6px 6px;
+    padding: 0px 10px 10px 10px;
+    background-color: #DDE3EA;
+    overflow: hidden;
+    border-bottom: 2px solid transparent;
+    transition: border-bottom-color 0.2s ease-in-out;
+    font-size: 14px;
+    color: #454847;
+}
+
+.description-input-wrapper:focus-within {
+    border-bottom: 2px solid #1a73e8; /* focus 시에도 두께 변화 없음 */
+}
+
+.description-input {
+    outline: none;
+    white-space: pre-wrap; /* 줄바꿈 적용 */
+    word-break: break-word;
+    line-height: 1.5;
+}

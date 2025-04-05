@@ -1,0 +1,535 @@
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    pointer-events: none; 
+    
+}
+
+.modal-content {
+    background: #F0F4F9;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    height: 475px;
+    pointer-events: auto;
+    position: relative;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.modal-content-expanded {
+    width: 475px;
+}
+
+.event-modal-header {
+    border-radius: 20px 20px 0px 0px;
+    height: 10%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.event-modal-content {
+    height: 75%;
+    width: 100%;
+    overflow-y: auto;
+}
+
+.event-modal-footer {
+    height: 15%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: #F0F4F9;
+    transition: box-shadow 0.2s ease-in-out;
+    border-radius: 0px 0px 20px 20px;
+}
+
+/* 스크롤이 있을 때 추가할 클래스 */
+.footer-shadow {
+    box-shadow: 0px -1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.event-modal-container {
+    display: flex;
+}
+
+.event-modal-form-title {
+    width: 100%; /* 가로 길이 유지 */
+    height: 40px; /* 고정 높이 */
+    font-size: 16px;
+    border: none;
+    border-bottom: 2px solid transparent; /* 기본적으로 2px 유지 */
+    background: transparent;
+    outline: none;
+    transition: border-bottom-color 0.2s ease-in-out;
+    caret-color: transparent;
+    box-sizing: border-box;
+    line-height: 1.5; /* placeholder 위치 고정 */
+    margin-top: 5px;
+}
+
+.event-modal-form-title:focus {
+    border-bottom: 2px solid #1a73e8; /* focus 시에도 두께 변화 없음 */
+}
+
+.event-modal-title-container {
+    width:80%;
+    height:100%;
+    display: flex;
+    align-items: center;
+}
+
+.event-modal-schedule-container-open {
+    width:80%;
+    height:100%;
+    display: flex;
+    align-items: center;
+}
+
+.event-modal-schedule-container-close {
+    width:80%;
+    height:100%;
+}
+
+.event-modal-form-schedule-button {
+    width:100%;
+    height:100%;
+    background: transparent;
+    border: none;
+    border-radius: 5px;
+}
+
+.event-modal-form-schedule-button:hover {
+    background: #e1e6ec;
+}
+
+.event-modal-form-start-date {
+    width: 140px; /* 가로 길이 유지 */
+    height: 40px; /* 고정 높이 */
+    font-size: 16px;
+    border: none;
+    border-bottom: 2px solid transparent; /* 기본적으로 2px 유지 */
+    background: #DDE3EA;
+    outline: none;
+    transition: border-bottom-color 0.2s ease-in-out;
+    caret-color: black;
+    line-height: 1.5; /* placeholder 위치 고정 */
+    padding: 10px 10px 10px 10px;
+    border-radius: 5px;
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+.event-modal-form-start-date:focus {
+    border-bottom: 2px solid #1a73e8; /* focus 시에도 두께 변화 없음 */
+}
+
+.event-modal-form-start-time {
+    width: 90px; /* 가로 길이 유지 */
+    height: 40px; /* 고정 높이 */
+    font-size: 16px;
+    border: none;
+    border-bottom: 2px solid transparent; /* 기본적으로 2px 유지 */
+    background: #DDE3EA;
+    outline: none;
+    transition: border-bottom-color 0.2s ease-in-out;
+    caret-color: black;
+    line-height: 1.5; /* placeholder 위치 고정 */
+    padding: 10px 10px 10px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.event-modal-form-start-time:focus {
+    border-bottom: 2px solid #1a73e8; /* focus 시에도 두께 변화 없음 */
+}
+
+.event-modal-form-end-time {
+    width: 90px; /* 가로 길이 유지 */
+    height: 40px; /* 고정 높이 */
+    font-size: 16px;
+    border: none;
+    border-bottom: 2px solid transparent; /* 기본적으로 2px 유지 */
+    background: #DDE3EA;
+    outline: none;
+    transition: border-bottom-color 0.2s ease-in-out;
+    caret-color: black;
+    line-height: 1.5; /* placeholder 위치 고정 */
+    padding: 10px 10px 10px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.event-modal-form-end-time:focus {
+    border-bottom: 2px solid #1a73e8; /* focus 시에도 두께 변화 없음 */
+}
+
+.event-modal-guest-container-open {
+    width:80%;
+    height:100%;
+    border-bottom: 2px solid transparent;
+    padding: 5px 0px 5px 0px;
+}
+
+.event-modal-guest-container-close {
+    width:80%;
+    height:100%;
+    padding: 5px 0px 5px 0px;
+    border-bottom: 2px solid transparent;
+}
+
+.event-modal-location-container-open {
+    width:80%;
+    height:100%;
+    border-bottom: 2px solid transparent;
+    padding: 5px 0px 5px 0px;
+}
+
+.event-modal-location-container-close {
+    width:80%;
+    height:100%;
+    padding: 5px 0px 5px 0px;
+}
+
+.event-modal-form-location-button {
+    width:100%;
+    height:100%;
+    background: transparent;
+    border: none;
+    border-radius: 5px;
+    display:flex;
+    align-items: center;
+    color: #454847;
+}
+
+.event-modal-form-location-button:hover {
+    background: #DDE3EA;
+}
+
+.event-modal-form-location {
+    width:100%;
+    height:100%;
+    border: none;
+    border-bottom: 2px solid transparent; /* 기본적으로 2px 유지 */
+    border-radius: 5px;
+    outline: none;
+    background: #DDE3EA;
+    color: #454847;
+    padding: 10px 0px 10px 0px;
+    transition: border-bottom-color 0.2s ease-in-out;
+    caret-color: transparent;
+    box-sizing: border-box;
+    line-height: 1.5; /* placeholder 위치 고정 */
+    padding-left: 10px;
+}
+
+.event-modal-form-location:focus {
+    border-bottom: 2px solid #1a73e8; /* focus 시에도 두께 변화 없음 */
+}
+
+.event-modal-form-guest-button {
+    width:100%;
+    height:100%;
+    background: transparent;
+    border: none;
+    border-radius: 5px;
+    display:flex;
+    align-items: center;
+    color: #454847;
+    padding-left: 5px;
+}
+
+.event-modal-form-guest-button:hover {
+    background: #DDE3EA;
+}
+
+.event-modal-form-guest {
+    width:100%;
+    height:100%;
+    border: none;
+    border-bottom: 2px solid transparent; /* 기본적으로 2px 유지 */
+    border-radius: 5px;
+    outline: none;
+    background: #DDE3EA;
+    color: #454847;
+    padding: 10px 0px 10px 0px;
+    transition: border-bottom-color 0.2s ease-in-out;
+    caret-color: transparent;
+    box-sizing: border-box;
+    line-height: 1.5; /* placeholder 위치 고정 */
+    padding-left: 10px;
+}
+
+.event-modal-form-guest:focus {
+    border-bottom: 2px solid #1a73e8; /* focus 시에도 두께 변화 없음 */
+}
+
+.event-modal-type-container {
+    width:80%;
+    height:100%;
+    display:flex;
+    align-items: center;
+}
+
+.event-modal-form-type-button {
+    height:80%;
+    background: transparent;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-right: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    
+}
+
+.active-modal {
+    background: #C2E7FF;
+}
+
+.event-modal-icon {
+    width:15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    
+}
+
+/* close 버튼 왼쪽 정렬 */
+.event-modal-close {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 10px;
+    background: #F0F4F9;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.event-modal-save {
+    position: absolute;
+    right: 10px;
+    width:75px;
+    height:40px;
+    background: #0B57D0;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.event-modal-close:hover {
+    background: #e6e9ee;
+}
+
+.event-modal-save:active {
+    background: #dfe2e8;
+}
+
+.event-modal-save:hover {
+    background: #366fcb;
+}
+
+.event-modal-save:active {
+    background: #3e76cf;
+}
+
+.event-modal-form-type-button:hover {
+    background: #e6e9ee;
+}
+
+.event-modal-form-type-button:active {
+    background: #dfe2e8;
+}
+
+.active-modal:hover {
+    background: #b3d4eb;
+}
+
+.active-modal:active {
+    background: #aecee3;
+}   
+
+.event-modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.event-modal-content::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+}
+
+.event-modal-content::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+.event-modal-description-container-open {
+    width:80%;
+    height:100%;
+    border-bottom: 2px solid transparent;
+    padding: 5px 0px 0px 0px;
+    background: #DDE3EA;
+    display: flex;
+}
+
+.event-modal-description-container-close {
+    width:80%;
+    height:100%;
+    padding: 5px 0px 5px 0px;
+    border-bottom: 2px solid transparent;
+}
+
+.event-modal-form-description-button {
+    width:100%;
+    height:100%;
+    background: transparent;
+    border: none;
+    border-radius: 5px;
+    display:flex;
+    align-items: center;
+    color: #454847;
+    padding-left: 5px;
+}
+
+.event-modal-form-description-button:hover {
+    background: #DDE3EA;
+}
+
+.event-modal-form-guest-button {
+    width:100%;
+    height:100%;
+    background: transparent;
+    border: none;
+    border-radius: 5px;
+    display:flex;
+    align-items: center;
+    color: #454847;
+    padding-left: 5px;
+}
+
+.event-modal-form-guest-button:hover {
+    background: #DDE3EA;
+}
+
+.event-modal-form-guest {
+    width:100%;
+    height:100%;
+    border: none;
+    border-bottom: 2px solid transparent; /* 기본적으로 2px 유지 */
+    border-radius: 5px;
+    outline: none;
+    background: #DDE3EA;
+    color: #454847;
+    padding: 10px 0px 10px 0px;
+    transition: border-bottom-color 0.2s ease-in-out;
+    caret-color: transparent;
+    box-sizing: border-box;
+    line-height: 1.5; /* placeholder 위치 고정 */
+    padding-left: 10px;
+}
+
+.event-modal-event-status-container-open {
+    width:80%;
+    height:100%;
+    border-bottom: 2px solid transparent;
+    padding: 5px 0px 5px 0px;
+    display:flex;
+    align-items: center;
+}
+
+.event-modal-event-status-container-close {
+    width:80%;
+    height:100%;
+    padding: 5px 0px 5px 0px;
+    border-bottom: 2px solid transparent;
+}
+
+
+.event-modal-form-event-status-button {
+    width:100%;
+    height:100%;
+    background: transparent;
+    border: none;
+    border-radius: 5px;
+    display:flex;
+    align-items: center;
+    color: #454847;
+    padding: 7px 0px 0px 7px;
+}
+
+.event-modal-form-event-status-button:hover {
+    background: #DDE3EA;
+}
+
+.event-modal-description-icon-container {
+    width:100%;
+    height:100%;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.event-modal-form-guest:focus {
+    border-bottom: 2px solid #1a73e8; /* focus 시에도 두께 변화 없음 */
+}
+
+.event-modal-description-icon {
+    width: 30px;
+    height:30px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius: 50%;
+}
+
+.event-modal-description-icon:hover {
+    background: #bdc3c9;
+}
+
+.event-modal-description-icon-container {
+    width:100%;
+    height: 100%;
+}
+
+.event-modal-form-color-drop-down-button {
+    width: 90px;
+    height: 80%;
+    background: #DDE3EA;
+    border: none;
+    border-radius: 5px;
+    display:flex;
+    align-items: center;
+    color: #454847;
+}
+
+.event-modal-form-color-drop-down-button:hover {
+    background: #c6cbd1;
+}
+
+.event-modal-set-color {
+    width:20px;
+    height:20px;
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-right: 20px;
+}

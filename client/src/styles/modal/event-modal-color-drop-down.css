@@ -1,0 +1,40 @@
+.modal-color-list {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: max-content;
+    opacity: 0;
+    visibility: hidden;
+
+    z-index: 9999;
+
+
+    transform: translateX(-125%);
+    top: 240px;
+}
+
+  .modal-color-list.open {
+    opacity: 1;
+    visibility: visible;
+}
+  
+  .color-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  .color-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border 0.2s;
+  }
+  

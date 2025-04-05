@@ -1,0 +1,65 @@
+/* 목록 기본 스타일 (숨김 상태) */
+.modal-time-list {
+    position: absolute;
+    transform: translateX(-60%);
+    top: 215px;
+    width: 150px; /* 리스트 너비 */
+    height: 200px;
+    list-style: none;
+    padding: 7px 0px;
+    margin-top: 10px;
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+    background-color: #f8fafb;
+    cursor: pointer;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+    
+    /* 애니메이션 효과 */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+
+    z-index: 9999; /* 다른 요소 위에 표시 */
+    overflow-y: auto;
+}
+
+.modal-time-list-item {
+    display: flex;
+    justify-content: space-between; /* 양쪽 정렬 */
+    align-items: center;
+    padding: 10px 10px; /* 항목 간 간격 추가 */
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* 마우스 호버 시 스타일 */
+.modal-time-list-item:hover {
+    background: #e4e4e4; /* 더 어두운 배경 */
+    border-radius: 0px;
+}
+
+.modal-time-list-item:active {
+    background: #dddddd; /* 클릭 시 더 진한 배경색 */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* 클릭 시 그림자 더 강조 */
+    transition: transform 0.1s ease-in-out; /* 부드러운 전환 효과 추가 */
+}
+
+/* 목록이 열릴 때 스타일 */
+.modal-time-list.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+.modal-time-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-time-list::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+}
+
+.modal-time-list::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}

@@ -1,0 +1,36 @@
+.event-modal-guest-container-open {
+    width:80%;
+    height:100%;
+    border-bottom: 2px solid transparent;
+    padding: 5px 0px 5px 0px;
+}
+
+
+.event-modal-guest-tags {
+    width:80%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.guest-tag {
+    background: #DDE3EA;
+    padding: 6px 5px 7px 15px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.guest-tag:hover {
+    background: #d0d6dc;
+}
+
+.remove-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #454847;
+}
