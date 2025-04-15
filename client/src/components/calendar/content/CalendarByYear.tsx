@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import 'styles/content/calendar-by-year.css'
 
 interface CalendarProps {
@@ -10,7 +10,6 @@ interface CalendarProps {
 
 const CalendarByYear: React.FC<CalendarProps> = ({ year, month, day }) => {
   const navigate = useNavigate();
-  const { viewType } = useParams();
 
   const date = new Date(
     year && month && day ? `${year}-${month}-${day}` : new Date().toLocaleDateString()
@@ -65,7 +64,8 @@ const CalendarByYear: React.FC<CalendarProps> = ({ year, month, day }) => {
   const handleDateClick = (date: Date) => {
     setCurrentDate(date);
     setSelectedDate(date);
-    navigate(`/${viewType}/${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`);
+    // navigate(`/${viewType}/${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`);
+    navigate(`/day/${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`);
   };
 
   // 월별 캘린더 생성 함수
@@ -155,6 +155,7 @@ const CalendarByYear: React.FC<CalendarProps> = ({ year, month, day }) => {
           </div>
           )
         })}
+        <div className="space"style={{width: "100%", height: "5%"}}/>
     </div>
   );
 };
