@@ -56,11 +56,15 @@ public class Event {
     @Getter
     public enum Color {
         TOMATO("#FF6347"),
+        LIGHT_PINK("#E67C73"),
         TANGERINE("#FFA500"),
         BANANA("#FFE135"),
         SAGE("#BCB88A"),
+        BASIL("#0B8043"),
+        PEACOCK("#039BE5"),
         BLUEBERRY("#4F86C6"),
-        LAVENDER("#E6E6FA");
+        LAVENDER("#E6E6FA"),
+        GRAPE("#8E24AA");
 
         private final String hexCode;
 
