@@ -1,26 +1,75 @@
 import React, { useEffect, useRef, useState } from "react";
 import "styles/content/calendar-by-day.css";
 
-const CalendarByDay: React.FC = () => {
-  const [currentTime, setCurrentTime] = useState<string>("");
+interface CalendarProps {
+    events: EventDetails[];
+    tasks: TaskDetails[];
+    year: number;
+    month: number;
+    day: number;
+    setModalDetails: any;
+}
+
+interface EventDetails {
+    id: string;
+    title: string;
+    startTime: string;
+    endTime: string;
+    description?: string;
+    location?: string;
+    color: string;
+}
+
+interface TaskDetails {
+    id: string;
+    title: string;
+    startTime: string;
+    endTime: string;
+    description?: string;
+    location?: string;
+    color: string;
+}
+
+type ColorGroup = Array<Record<string, string>>;
+
+const CalendarByDay: React.FC <CalendarProps> = ({events, year, month, day, setModalDetails }) => {
+
+  const date = new Date(
+    year && month && day
+      ? `${year}-${month}-${day}`
+      : new Date().toLocaleDateString()
+  );
+
+  const [currentTimeString, setCurrentTimeString] = useState<string>("");
 
   useEffect(() => {
     const interval = setInterval(() => {
       const now = new Date();
       const hours = now.getHours();
       const minutes = now.getMinutes();
-      setCurrentTime(`${hours}:${minutes < 10 ? "0" + minutes : minutes}`);
+      setCurrentTimeString(
+        `${hours}:${minutes < 10 ? "0" + minutes : minutes}`
+      );
     }, 60000); // 매 1분마다 현재 시간을 업데이트
 
     return () => clearInterval(interval);
   }, []);
 
   const timezone = "GMT+09";
-  const date = new Date();
-  const dayByWeek = ["일", "월", "화", "수", "목", "금", "토"][date.getDay()]; // 요일
-  const today = date.getDate(); // 날짜
+  const dayOfTheWeek = [
+    "일",
+    "월",
+    "화",
+    "수",
+    "목",
+    "금",
+    "토",
+  ][date.getDay()]; // 요일
+  const today = new Date(); // 날짜
 
-  console.log(date + " " + today);
+  const isToday = date.getFullYear() === today.getFullYear() && 
+          date.getMonth() === today.getMonth() &&
+          date.getDate() === today.getDate()
 
   const hours = [
     "오전 1시",
@@ -51,23 +100,10 @@ const CalendarByDay: React.FC = () => {
 
   const quarter = ["15", "30", "45", "00"];
 
-  const events = [
-    { id: 1, title: "회의", startTime: "2025-03-22 09:00", endTime: "2025-03-22 10:30" },
-    { id: 2, title: "개발 작업", startTime: "2025-03-22 09:30", endTime: "2025-03-22 11:00" },
-    { id: 3, title: "점심 약속", startTime: "2025-03-22 12:00", endTime: "2025-03-22 13:45" },
-    { id: 4, title: "코드 리뷰", startTime: "2025-03-22 09:45", endTime: "2025-03-22 10:15" },
-    { id: 5, title: "회의", startTime: "2025-03-22 16:30", endTime: "2025-03-22 18:00" },
-  ];
-
-
-  
-  // 시간대 인덱스 계산 함수
   const getHourIndex = (time: string) => {
-    
     const [hour, minute] = time.split(":");
     const minuteValue = parseInt(minute);
 
-    // 15분 단위로 나누어 계산
     const quarter = Math.floor(minuteValue / 15) * 0.25;
 
     return parseInt(hour) + quarter; // 9:15 -> 9.25, 9:30 -> 9.5, 9:45 -> 9.75
@@ -75,26 +111,24 @@ const CalendarByDay: React.FC = () => {
 
   const calculateEventPosition = (events: any[]) => {
     const positions: any[] = [];
-    const maxWidth = 700; // 화면 너비(%)
+    const maxWidth = 700;
 
     events.forEach((event, index) => {
-      const startIdx = getHourIndex(event.startTime.split(" ")[1]);
-      const endIdx = getHourIndex(event.endTime.split(" ")[1]);
+      const startIdx = getHourIndex(event.startTime.split("T")[1]);
+      const endIdx = getHourIndex(event.endTime.split("T")[1]);
       const topPosition = startIdx * 40.7;
       const height = (endIdx - startIdx) * 40.7;
 
-      // 겹치는 일정을 처리 (간단히 왼쪽으로 배치)
       let leftPosition = 0;
-      let width = 250; // 기본 일정 크기
+      let width = 250;
 
       positions.forEach((pos) => {
         if (
           pos.topPosition < topPosition + height &&
           pos.topPosition + pos.height > topPosition
         ) {
-          // leftPosition을 화면 너비를 넘지 않게 제한
-          leftPosition = Math.min(pos.leftPosition + 150, maxWidth - 150); // 일정 간격을 40%로 설정
-          width = Math.max(width - 100, 200); // 일정이 겹칠 경우 너비를 줄임
+          leftPosition = Math.min(pos.leftPosition + 150, maxWidth - 150);
+          width = Math.max(width - 100, 200);
         }
       });
 
@@ -105,6 +139,41 @@ const CalendarByDay: React.FC = () => {
   };
 
   const eventPositions = calculateEventPosition(events);
+
+  function handleEventClick(event: any) {
+    setModalDetails({
+      isOpen: true,
+      type: "event",
+      data: event
+    });
+  }
+
+  function handleTaskClick(task: any) {
+    setModalDetails({
+      isOpen: true,
+      type: "task",
+      data: task
+    });
+  }
+
+  const colors: ColorGroup[] = [
+    [{ "TOMATO": "rgb(213, 0, 0)" }, { "LIGHT_PINK": "rgb(230, 124, 115)" }],
+    [{ "TANGERINE": "rgb(244, 81, 30)" }, { "BANANA": "rgb(246, 191, 38)" }],
+    [{ "SAGE": "rgb(51, 182, 121)" }, { "BASIL": "rgb(11, 128, 67)" }],
+    [{ "PEACOCK": "rgb(3, 155, 229)" }, { "BLUEBERRY": "rgb(63, 81, 181)" }],
+    [{ "LAVENDER": "rgb(121, 134, 203)" }, { "GRAPE": "rgb(142, 36, 170)" }],
+  ];
+
+const getRgbByColorName = (name: string): string => {
+    for (const group of colors) {
+        for (const colorObj of group) {
+            if (colorObj[name]) {
+                return colorObj[name];
+            }
+        }
+    }
+    return "#ccc"; // 혹시 못 찾았을 경우 기본 색상
+};
 
   return (
     <div className="day-calendar">
@@ -124,8 +193,8 @@ const CalendarByDay: React.FC = () => {
         </div>
         <div style={{ width: "92%", height: "100%", display: "flex" }}>
           <div style={{ padding: "10px 0px 0px 10px" }}>
-            <div className="day-calendar-day-of-the-week">{dayByWeek}</div>
-            <div className="day-calendar-day">{today}</div>
+            <div className={`day-calendar-day-of-the-week ${isToday ? "day-calendar-day-of-the-week-today" : ""} `} >{dayOfTheWeek}</div>
+            <div className={`day-calendar-day ${isToday ? "day-calendar-day-today" : ""} `}>{day}</div>
           </div>
         </div>
       </div>
@@ -157,16 +226,20 @@ const CalendarByDay: React.FC = () => {
 
         <div className="day-calendar-schedule">
           {events.map((event, index) => {
-          
-            const startIdx = getHourIndex(event.startTime.split(" ")[1]);
-            const endIdx = getHourIndex(event.endTime.split(" ")[1]);
-            const topPosition = startIdx * 40.7;
+
+            
+
+            if (!event.startTime || !event.endTime) return null;
+            const startIdx = getHourIndex(event.startTime.split("T")[1]);
+            const endIdx = getHourIndex(event.endTime.split("T")[1]);
+            const topPosition = startIdx * 40;
             const height = (endIdx - startIdx) * 40.7;
             const { leftPosition } = eventPositions[index];
 
             // 일정이 짧은 경우를 판별 (예: 1시간 미만)
             const isShortEvent = height < 40.7; // 1시간 미만의 일정
 
+            console.log(event.color)
             return (
               <div
                 key={event.id}
@@ -174,32 +247,67 @@ const CalendarByDay: React.FC = () => {
                 style={{
                   top: topPosition,
                   left: leftPosition, // 겹치는 일정 왼쪽으로 배치
-                  height: height,
+                  height: height > 40 ? height : 20,
+                  cursor: "pointer",
+                  background: getRgbByColorName(event.color)
                 }}
-                onClick={() => alert(`Event: ${event.title}`)} // 클릭 시 이벤트
-              >
+
+                onClick={() => handleEventClick(event)} // 클릭 시 이벤트
+              > 
+              
                 {isShortEvent ? (
                   <span>
-                    {event.title} {event.startTime.split(" ")[1]} ~ {event.endTime.split(" ")[1]}
+                    {event.title} {event.startTime.split("T")[1]} ~ {event.endTime.split("T")[1]}
                   </span>
                 ) : (
                   <>
                     <span>{event.title}</span>
                     <span>
-                      {event.startTime.split(" ")[1]} ~ {event.endTime.split(" ")[1]}
+                      {event.startTime.split("T")[1]} ~ {event.endTime.split("T")[1]}
                     </span>
                   </>
                 )}
               </div>
             );
           })}
+          {/* {tasks.map((task, index) => {
+            
+            const startIdx = getHourIndex(task.dueDate.split(" ")[1]);
+            const topPosition = startIdx * 40;
+            const height =  20.7;
+            
+            return (
+                <div
+                key={task.id}
+                className="event-box"
+                style={{
+                    top: topPosition,
+                    left: "0px", // 겹치는 일정 왼쪽으로 배치
+                    height: height,
+                    cursor: "pointer",
+                    justifyItems:"center",
+                    background:"#039BE5"
+                }}
+
+                onClick={() => handleTaskClick(task)} // 클릭 시 이벤트
+                >
+                    <span style={{color:"#fff", fill:"#fff",}}>
+                        <svg enable-background="new 0 0 24 24" focusable="false" height="14" viewBox="0 0 24 24" width="14"><rect fill="none" height="24" width="24"></rect>
+                            <path d="M22,5.18L10.59,16.6l-4.24-4.24l1.41-1.41l2.83,2.83l10-10L22,5.18z M19.79,10.22C19.92,10.79,20,11.39,20,12 c0,4.42-3.58,8-8,8s-8-3.58-8-8c0-4.42,3.58-8,8-8c1.58,0,3.04,0.46,4.28,1.25l1.44-1.44C16.1,2.67,14.13,2,12,2C6.48,2,2,6.48,2,12 c0,5.52,4.48,10,10,10s10-4.48,10-10c0-1.19-0.22-2.33-0.6-3.39L19.79,10.22z"></path>
+                        </svg>
+                        <span>{' '}</span>
+                        {task.title} {task.dueDate.split(" ")[1]}
+                    </span>
+                </div>
+            );
+            })} */}
           {hours.map((hour, hourIndex) => (
             <div key={hourIndex} className="schedule-column">
               {quarter.map((qtr, qtrIndex) => {
                 const timeString = `${hourIndex}:${qtrIndex * 15}`;
 
                 const startIdx = getHourIndex(timeString);
-                const topPosition = startIdx * 40.7 + 4;
+                const topPosition = startIdx * 40.7;
                 const isCurrentTime =
                   `${new Date().getHours()}:${
                     Math.floor(new Date().getMinutes() / 15) * 15
@@ -207,11 +315,11 @@ const CalendarByDay: React.FC = () => {
 
                 return (
                   <div>
-                    {isCurrentTime ? (
+                    {isCurrentTime && isToday ? (
                       <div>
                         <div
                           className="current-time-ball"
-                          style={{ top: topPosition }}
+                          style={{ top: `${getHourIndex(timeString) * 40 + 5}px` }}
                         />
                         <div className="quarter" />
                         <div className="current-time" />
