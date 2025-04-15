@@ -12,7 +12,7 @@ A full-stack calendar application featuring user authentication, event schedulin
 ## 📁 Project Structure
 
 calendar/ 
-├── client/ # Frontend application 
+├── client/ # Frontend application<br>
 └── server/ # Backend application
 
 ## 🚀 Getting Started
