@@ -50,7 +50,7 @@ public class EventController {
         eventService.updateEventById(id, userDetails.getUsername(), request);
     }
 
-    @DeleteMapping("event/{event-id}")
+    @DeleteMapping("/event/{event-id}")
     public void deleteEvent(
         @AuthenticationPrincipal UserDetails userDetails,
         @PathVariable("event-id") Long id) throws Exception {
