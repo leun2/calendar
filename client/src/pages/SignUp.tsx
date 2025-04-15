@@ -6,6 +6,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import SignUpForm from 'components/auth/SignUpForm';
+import ImagePanel from 'components/auth/ImagePanel';
 
 function SignUp() {
 
@@ -13,8 +14,9 @@ function SignUp() {
     const [email, setEmail] = useState('');
 
     return (
-        <div>
+        <div style={{display:"flex"}}>
             <CssBaseline />
+            <ImagePanel />
             {
                 isEmailVaild 
                     
