@@ -7,28 +7,42 @@ import {
   Typography
 } from '@mui/material';
 import OAuthButtons from './OAuthButtons';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 function SignUpEmailForm({ onNext }) {
 
-    const [inputEmail, setInputEmail] = useState('');
-
-    const handleNextClick = () => {
-        if (inputEmail.trim() !== '') {
-            onNext(inputEmail); // 이메일 전달
+    const formik = useFormik({
+        initialValues: {
+          email: ''
+        },
+        validationSchema: Yup.object({
+          email: Yup.string()
+            .email('유효한 이메일 주소를 입력해주세요')
+            .required('이메일은 필수입니다')
+        }),
+        onSubmit: async (values) => {
+            // const success = await checkEmailAvailability(email);
+            // if(success)
+            onNext(values.email);
         }
-    };
+        // onSubmit: ({ email }) => {
+        //     onNext(email);
+        // }
+    });
 
     return (
         <Box
             sx={{
                 minHeight: '100vh',
                 display: 'flex',
-                alignItems: 'center', // 수직 정중앙
-                justifyContent: 'center', // 수평 정중앙
+                alignItems: 'center',
+                justifyContent: 'center',
                 backgroundColor: '#fff',
+                width: '50vw'
             }}
         >
-            <Box sx={{ width: '100%', maxWidth: 300 }}>
+            <Box component="form" onSubmit={formik.handleSubmit} sx={{ width: '100%', maxWidth: 300 }}>
                 <Stack spacing={2}>
 
                     <Stack spacing={1}>
@@ -55,13 +69,18 @@ function SignUpEmailForm({ onNext }) {
                         <TextField 
                             fullWidth 
                             label="이메일"
-                            value={inputEmail}
-                            onChange={(e) => setInputEmail(e.target.value)} />
+                            name="email"
+                            value={formik.values.email}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={formik.touched.email && Boolean(formik.errors.email)}
+                            helperText={formik.touched.email && formik.errors.email} />
 
                         <Button 
+                            type="submit" 
                             variant="contained" 
-                            fullWidth size="large" 
-                            onClick={handleNextClick}>
+                            fullWidth 
+                            size="large">
                             계속
                         </Button>
 
