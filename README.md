@@ -1,44 +1,44 @@
-📅 Calendar Project​
-Gist
-A full-stack calendar application featuring user authentication, event scheduling, and responsive UI.​
+# 📅 Calendar Project
 
-🛠️ Tech Stack
-Frontend: React, TypeScript, CSS
+A full-stack calendar application featuring user authentication, event scheduling, and responsive UI.
 
-Backend: Spring Boot, Java
+## 🛠️ Tech Stack
 
-Authentication: JWT
+- **Frontend**: React, TypeScript, CSS
+- **Backend**: Spring Boot, Java
+- **Authentication**: JWT
+- **Database**: JPA
 
-Database: JPA​
+## 📁 Project Structure
 
-📁 Project Structure
-bash
-복사
-편집
-calendar/
-├── client/   # Frontend application
-└── server/   # Backend application
-🚀 Getting Started
-Prerequisites
-Node.js
+calendar/ ├── client/ # Frontend application └── server/ # Backend application
 
-Java 17+
 
-Gradle​
+## 🚀 Getting Started
 
-Installation
-Backend
-bash
-복사
-편집
+### Prerequisites
+
+- Node.js
+- Java 17+
+- Gradle
+
+### Installation
+
+#### Backend
+
+```
 cd server
 ./gradlew bootRun
-Frontend
-bash
-복사
-편집
+```
+
+#### Frontend
+
+```
 cd client
 npm install
 npm start
-📄 License
+```
+
+## 📄 License
+
 This project is licensed under the MIT License. See the LICENSE file for details.
