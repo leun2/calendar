@@ -5,97 +5,118 @@ import {
   InputAdornment,
   Stack,
   TextField,
-  Typography
+  Typography,
+  IconButton
 } from '@mui/material';
-import { IconButton } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { useNavigate } from 'react-router-dom';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { signUp } from 'api/authApi';
 
 function SignUpForm({ onPrev, email }) {
-
+    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
-    
-    const [inputUserName, setInputUserName] = useState('')
-    const [inputPassword, setInputPassword] = useState('')
+    const togglePassword = () => setShowPassword((prev) => !prev);
 
-    const handleTogglePassword = () => {
-        setShowPassword((prev) => !prev);
-    };
+    // const [showConfirm, setShowConfirm] = useState(false);
+    // const toggleConfirm = () => setShowConfirm((prev) => !prev);
 
-    const handleEmailEnvaild =() => {
-        email = ''
-        onPrev();
-    }
+    const formik = useFormik({
+        initialValues: {
+            name: '',
+            password: '',
+            // confirmPassword: ''
+        },
+        validationSchema: Yup.object({
+            name: Yup.string()
+                .required('이름은 필수입니다'),
+            password: Yup.string()
+                .matches(
+                    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&]).{8,}$/,
+                    '영문, 숫자, 특수문자 포함 8자 이상 입력해주세요'
+                )
+                .required('비밀번호는 필수입니다'),
+            // confirmPassword: Yup.string()
+            //     .oneOf([Yup.ref('password'), null], '비밀번호가 일치하지 않습니다')
+            //     .required('비밀번호 확인은 필수입니다')
+        }),
+        onSubmit: async (values) => {
+            const success = await signUp(email, values.password, values.name, 'LOCAL');
+            if (success) navigate('/signin');
+            else console.log('회원가입 실패');
+        }
+    });
 
-    return (
-        <Box
-            sx={{
-                minHeight: '100vh',
-                display: 'flex',
-                alignItems: 'center', // 수직 정중앙
-                justifyContent: 'center', // 수평 정중앙
-                px: 2, // 반응형 여백
-                backgroundColor: '#fff',}}>
-        <Box sx={{ width: '100%', maxWidth: 300 }}>
+  return (
+    <Box
+        sx={{
+            minHeight: '100vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            px: 2,
+            backgroundColor: '#fff',
+            width: '50vw'
+        }}
+    >
+        <Box component="form" onSubmit={formik.handleSubmit} sx={{ width: '100%', maxWidth: 300 }}>
             <Stack spacing={2}>
+                <Typography variant="h5" fontWeight="bold">계정 생성</Typography>
 
-                {/* Heading */}
-                <Typography variant="h5" fontWeight="bold">
-                    계정 생성
-                </Typography>
                 <Stack direction="row" alignItems="center" spacing={1}>
-                    <Box>
-                        <IconButton
-                            disableRipple
-                            aria-label="돌아가기"
-                            data-testid="back-button"
-                            sx={{
-                                borderRadius: 2, // 약간 둥근 사각형
-                                '&:hover': {
-                                    backgroundColor: 'rgba(0, 0, 0, 0.04)',
-                                },
-                                '&:active': {
-                                    backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                                }
-                            }}
-                            onClick={handleEmailEnvaild}
-                        >
-                            <ArrowBackIcon />
-                        </IconButton>
-                    </Box>
+                    <IconButton
+                        onClick={onPrev}
+                        disableRipple
+                        aria-label="돌아가기"
+                        sx={{
+                            borderRadius: 2,
+                            '&:hover': { backgroundColor: 'rgba(0, 0, 0, 0.04)' },
+                            '&:active': { backgroundColor: 'rgba(0, 0, 0, 0.1)' }
+                        }}
+                    >
+                        <ArrowBackIcon />
+                    </IconButton>
 
-                    <Typography variant="body" sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize:'14px', color:'#666666' }}>
+                    <Typography variant="body2" sx={{ fontSize: '14px', color: '#666', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                         {email}
                     </Typography>
                 </Stack>
-                {/* Input fields */}
-                <TextField 
-                    fullWidth 
+
+                <TextField
+                    fullWidth
                     label="사용자 이름"
-                    value={inputUserName}
-                    onChange={(e) => setInputUserName(e.target.value)} />
+                    name="name"
+                    value={formik.values.name}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.name && Boolean(formik.errors.name)}
+                    helperText={formik.touched.name && formik.errors.name}
+                />
+
                 <TextField
                     fullWidth
                     label="비밀번호"
+                    name="password"
                     type={showPassword ? 'text' : 'password'}
-                    value={inputPassword}
-                    onChange={(e) => setInputPassword(e.target.value)}
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.password && Boolean(formik.errors.password)}
+                    helperText={formik.touched.password && formik.errors.password}
                     InputProps={{
-                    endAdornment: (
+                        endAdornment: (
                             <InputAdornment position="end">
                             <IconButton
                                 disableRipple
-                                onClick={handleTogglePassword}
+                                onClick={togglePassword}
                                 aria-label="비밀번호 보기 전환"
                                 sx={{
-                                    borderRadius: 2, // 약간 둥근 사각형
-                                    '&:hover': {
-                                        backgroundColor: 'rgba(0, 0, 0, 0.04)', // 연한 회색 배경
-                                    },
-                                    '&:active': {
-                                        backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                                    }
+                                    borderRadius: 2,
+                                    '&:hover': { backgroundColor: 'rgba(0, 0, 0, 0.04)' },
+                                    '&:active': { backgroundColor: 'rgba(0, 0, 0, 0.1)' }
                                 }}
                             >
                                 {showPassword ? <VisibilityOff /> : <Visibility />}
@@ -104,26 +125,40 @@ function SignUpForm({ onPrev, email }) {
                         ),
                     }}
                 />
-                
 
-                {/* Signup button */}
-                <Button variant="contained" fullWidth size="large">
-                    등록
-                </Button>
+                {/* <TextField
+                    fullWidth
+                    label="비밀번호 확인"
+                    name="confirmPassword"
+                    type={showConfirm ? 'text' : 'password'}
+                    value={formik.values.confirmPassword}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
+                    helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
+                    InputProps={{
+                    endAdornment: (
+                        <InputAdornment position="end">
+                        <IconButton onClick={toggleConfirm}>
+                            {showConfirm ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                        </InputAdornment>
+                    )
+                    }}
+                /> */}
 
-                {/* Login link */}
+                <Button type="submit" variant="contained" fullWidth size="large">등록</Button>
+
                 <Typography fontSize={14}>
                     이미 계정이 있나요?{' '}
-                    <a
-                        href="/signin"
-                        style={{ textDecoration: 'none', color: '#1976d2' }}>
+                    <a href="/signin" style={{ textDecoration: 'none', color: '#1976d2' }}>
                     로그인
                     </a>
                 </Typography>
             </Stack>
         </Box>
-        </Box>
-    );
+    </Box>
+  );
 }
 
 export default SignUpForm;
