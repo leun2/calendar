@@ -95,7 +95,10 @@ public class CalendarService {
         return switch (unit.toLowerCase()) {
             case "year" -> date.with(TemporalAdjusters.firstDayOfYear());
             case "month" -> date.with(TemporalAdjusters.firstDayOfMonth());
-            case "week" -> date.minusDays(date.getDayOfWeek().getValue() - 1);
+            case "week" ->
+                date.minusDays(date.getDayOfWeek().getValue() % 7); // 일요일 시작
+//                date.minusDays(date.getDayOfWeek().getValue() - 1); // 월요일 시작
+
             case "day" -> date.toLocalDate().atStartOfDay();
             default -> throw new IllegalArgumentException("Invalid unit: " + unit);
         };
@@ -107,10 +110,9 @@ public class CalendarService {
             case "year" -> date.with(TemporalAdjusters.lastDayOfYear()).plusDays(1);
             case "month" -> date.with(TemporalAdjusters.lastDayOfMonth()).plusDays(1);
             case "week" -> {
-                LocalDateTime startDate = date.minusDays(date.getDayOfWeek().getValue() - 1);
-                // startDate = date.minusDays((date.getDayOfWeek().getValue() % 7));
+//                LocalDateTime startDate = date.minusDays(date.getDayOfWeek().getValue() - 1);
+                LocalDateTime startDate = date.minusDays((date.getDayOfWeek().getValue() % 7));
                 yield startDate.plusDays(7);
-                // endDate = startDate.plusDays(6);
             }
             case "day" -> date.toLocalDate().atTime(23, 59, 59);
             default -> throw new IllegalArgumentException("Invalid unit: " + unit);
