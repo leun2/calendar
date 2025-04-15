@@ -10,9 +10,9 @@ A full-stack calendar application featuring user authentication, event schedulin
 - **Database**: JPA
 
 ## 📁 Project Structure
-
+```
 calendar/ ├── client/ # Frontend application └── server/ # Backend application
-
+```
 
 ## 🚀 Getting Started
 
