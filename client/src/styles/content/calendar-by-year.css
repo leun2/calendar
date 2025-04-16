@@ -1,0 +1,114 @@
+.year-calendar {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    background-color: #ffffff;
+    overflow-y: auto;
+
+}
+
+.year-calendar-column {
+    width: 100%;
+    height: 55%;
+    display: flex;
+}
+
+.year-calendar-container {
+    width: 25%;
+    height: 100%;
+    padding-left: 15px;
+    padding-top: 15px;
+}
+
+.year-calendar-header {
+    width: 100%;
+    height: 15%;
+    color: black;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.year-calendar-table {
+    border-spacing: 4px;
+}
+
+.year-calendar-table-head th {
+    font-weight: normal;
+    cursor: default;
+    font-size: 11px;
+    font-weight: 500;
+    color:#5a5a5a
+}
+.year-calendar-table-body td {
+    text-align: center; /* 가운데 정렬 */
+    vertical-align: middle; /* 세로 중앙 정렬 */
+    font-size: 10px;
+    font-weight: 500;
+    width: 25px;
+    height: 25px;
+}
+
+.year-calendar-table-body td:hover {
+    border-radius: 100%;
+    background: #e4e4e4; /* 마우스 오버 시 배경 변경 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 마우스 오버 시 그림자 */
+}
+
+.year-calendar-table-body td:active {
+    background: #dddddd; /* 클릭 시 더 진한 배경색 */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* 클릭 시 그림자 더 강조 */
+}
+
+.year-calendar-item {
+    cursor: pointer;
+}
+
+.year-calendar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.year-calendar::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+}
+
+.year-calendar::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+/* 반응형 적용
+@media (max-width: 1200px) {
+    .year-calendar-container {
+        max-width: 30%;
+    }
+}
+
+@media (max-width: 1024px) {
+    .year-calendar-container {
+        max-width: 45%;
+    }
+}
+
+@media (max-width: 768px) {
+    .year-calendar-column {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .year-calendar-container {
+        max-width: 80%;
+    }
+}
+
+@media (max-width: 480px) {
+    .year-calendar-container {
+        max-width: 100%;
+    }
+
+    .year-calendar-table-body td {
+        width: 2em;
+        height: 2em;
+        font-size: 0.8rem;
+    }
+} */

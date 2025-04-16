@@ -1,0 +1,127 @@
+* {
+    box-sizing: border-box;
+}
+
+.month-calendar {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    background-color: #ffffff;
+    border-left: 1px solid #cbcbcb;
+    border-bottom: 1px solid #cbcbcb;
+}
+
+.month-calendar-header {
+    color: black;
+    display: flex;
+    width: 100%;
+    height: 4%;
+    font-size: 11px;
+    font-weight: 500;
+    color:#5a5a5a
+}
+
+.month-calendar-day-of-the-week {
+    display: flex;
+    width: 14.4%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid #cbcbcb;
+}
+
+.day-of-the-week-sunday {
+    display: flex;
+    width: 14.4%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.month-calendar-content {
+    color: black;
+    width: 100%;
+    height: 97%;
+
+}
+
+.month-calendar-column {
+    width: 100%;
+    height: 16.6%;
+    display: flex;
+}
+
+.month-calendar-item {
+    width: 15%;
+    height: 100%;
+    border-left: 1px solid #cbcbcb;
+    border-bottom: 1px solid #cbcbcb;
+}
+
+.day-sunday {
+    width: 15%;
+    height: 100%;
+    border-bottom: 1px solid #cbcbcb;
+}
+
+.week-first-day {
+    width: 15%;
+    height: 100%;
+    border-bottom: 1px solid #cbcbcb;
+}
+
+.month-calendar-date {
+    display: flex;
+    cursor: pointer;
+    width: 18%;
+    height: 75%;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.month-calendar-today {
+    background-color: #305de2;
+    border-radius: 50%;
+    color: white;
+}
+
+.first-day {
+    width: 40%;
+}
+
+.first-day-today {
+    width: 18%;
+}
+
+.event-container {
+    width: 100%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.event-item {
+    background-color: #305de2;
+    border-radius: 5px;
+    width: 95%;
+    height: 40%;
+    color: white;
+    font-size: 12px;
+    display: flex;
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: unset; /* 좌우 정렬 해제 */
+    cursor: pointer;
+}
+
+.more-events {
+    width: 95%;
+    height: 40%;
+    font-size: 12px;
+    display: flex;
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: unset; /* 좌우 정렬 해제 */
+    cursor: pointer;
+}
