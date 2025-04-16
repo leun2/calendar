@@ -15,7 +15,7 @@
 
 
     transform: translateX(-125%);
-    top: 240px;
+    top: 250px;
 }
 
   .modal-color-list.open {
@@ -37,4 +37,3 @@
     border: 2px solid transparent;
     transition: border 0.2s;
   }
-  
