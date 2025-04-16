@@ -1,0 +1,74 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+
+.image-container img {
+    width: 50px;
+    height: auto;
+    display: block;
+    margin-left: 70px;
+}
+
+/* 대시보드 전체 레이아웃 */
+.app {
+    background-color: #f8fafb;
+    height: 100%; /* 전체 화면 높이 */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 헤더 스타일 */
+.header {
+    position: relative; /* absolute 대신 relative로 변경 */
+    width: 100%;
+    height: 11vh;
+    background-color: #f8fafb;
+    color: black;
+    display: flex;
+    align-items: center;
+}
+
+/* 사이드바 스타일 */
+.sidebar {
+    position: fixed;
+    top: 13vh;
+    left: 0;
+    height: calc(100vh - 13vh); /* 헤더를 제외한 나머지 높이 */
+    width: 20%;
+    background-color: #f8fafb;
+}
+
+/* 콘텐츠 영역 */
+.content {
+    margin-left: 20%;
+    width: 75%;
+    height: calc(100vh - 13vh); /* 헤더와 사이드바를 제외한 나머지 높이 */
+    background-color: #f8fafb;
+    overflow: visible; /* 변경 */
+}
+
+/* 푸터 스타일 */
+.footer {
+    width: 100%;
+    height: 2vh;
+    background-color: #f8fafb;
+}
+
+.logo-container {
+    background-color: #47BBEC;
+    color:#fff;
+    margin-left: 30px;
+    width: 125px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 10px 10px 10px;
+    border-radius: 5px;
+    font-family: "Montserrat Alternates", sans-serif;
+    font-weight: 600;
+}
