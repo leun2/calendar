@@ -175,6 +175,19 @@ const getRgbByColorName = (name: string): string => {
     return "#ccc"; // 혹시 못 찾았을 경우 기본 색상
 };
 
+const formatTimeRange = (start?: string, end?: string) => {
+    const t1 = start?.split("T")[1];
+    const t2 = end?.split("T")[1];
+    if (!t1 || !t2) return '';
+    const d1 = new Date(`2000-01-01T${t1}`);
+    const d2 = new Date(`2000-01-01T${t2}`);
+    const h1 = d1.getHours().toString().padStart(2, '0');
+    const m1 = d1.getMinutes().toString().padStart(2, '0');
+    const h2 = d2.getHours().toString().padStart(2, '0');
+    const m2 = d2.getMinutes().toString().padStart(2, '0');
+    return `${h1}:${m1} ~ ${h2}:${m2}`;
+  };
+
   return (
     <div className="day-calendar">
       <div className="day-calendar-header">
@@ -237,7 +250,7 @@ const getRgbByColorName = (name: string): string => {
             const { leftPosition } = eventPositions[index];
 
             // 일정이 짧은 경우를 판별 (예: 1시간 미만)
-            const isShortEvent = height < 40.7; // 1시간 미만의 일정
+            const isShortEvent = height < 40; // 1시간 미만의 일정
 
             console.log(event.color)
             return (
@@ -245,28 +258,30 @@ const getRgbByColorName = (name: string): string => {
                 key={event.id}
                 className="event-box"
                 style={{
-                  top: topPosition,
-                  left: leftPosition, // 겹치는 일정 왼쪽으로 배치
-                  height: height > 40 ? height : 20,
-                  cursor: "pointer",
-                  background: getRgbByColorName(event.color)
+                    top: topPosition,
+                    left: leftPosition, // 겹치는 일정 왼쪽으로 배치
+                    height: height > 40 ? height : 22,
+                    cursor: "pointer",
+                    background: getRgbByColorName(event.color),
+                    paddingLeft: "5px",
+                    paddingTop: !isShortEvent ? "5x" : "",
                 }}
 
                 onClick={() => handleEventClick(event)} // 클릭 시 이벤트
               > 
               
-                {isShortEvent ? (
+              {isShortEvent ? (
+                <span>
+                  {event.title} {formatTimeRange(event.startTime, event.endTime)}
+                </span>
+              ) : (
+                <>
+                  <span>{event.title}</span>
                   <span>
-                    {event.title} {event.startTime.split("T")[1]} ~ {event.endTime.split("T")[1]}
+                    {formatTimeRange(event.startTime, event.endTime)}
                   </span>
-                ) : (
-                  <>
-                    <span>{event.title}</span>
-                    <span>
-                      {event.startTime.split("T")[1]} ~ {event.endTime.split("T")[1]}
-                    </span>
-                  </>
-                )}
+                </>
+              )}
               </div>
             );
           })}
