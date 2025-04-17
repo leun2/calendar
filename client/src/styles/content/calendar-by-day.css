@@ -122,8 +122,6 @@
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 10px 5px 10px 5px;
     border: 1px solid #ffffff;
     font-size: 14px;
 }
