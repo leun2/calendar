@@ -42,6 +42,13 @@ html, body {
     background-color: #f8fafb;
 }
 
+.sidebar-button-container {
+    margin-top: 275px;
+    display: flex;
+    flex-direction: column; /* 세로 정렬 */
+    align-items: center;  
+}
+
 /* 콘텐츠 영역 */
 .content {
     margin-left: 20%;
