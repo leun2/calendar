@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import SignInEmailForm from 'components/auth/SignInEmailForm'
 import '@fontsource/roboto/300.css';
@@ -7,12 +7,25 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import SignInForm from 'components/auth/SignInForm';
 import ImagePanel from 'components/auth/ImagePanel';
-import { Box, Typography } from '@mui/material';
+import { ping } from 'api/apiClient';
 
 function SignIn() {
 
     const [isEmailVaild, setSignUpState] = useState(false);
     const [email, setEmail] = useState('');
+
+    useEffect(() => {
+        const fetchPing = async () => {
+          try {
+            const response = await ping();
+            console.log(response.data);
+          } catch (error: any) {
+            console.log(error.message || '핑 요청 실패');
+          }
+        };
+    
+        fetchPing();
+      }, []); 
 
     return (
         <div style={{display:"flex"}}>
