@@ -26,6 +26,12 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping("/ping")
+    public ResponseEntity<String> ping() {
+
+        return ResponseEntity.ok("pong");
+    }
+
     @PostMapping("/user")
     public void registerUser(@RequestBody @Valid UserDto.Request request) throws Exception {
         userService.registerUser(request);
