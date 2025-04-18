@@ -7,14 +7,15 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import { setupInterceptors } from "api/setupInterceptors";
 import { AuthProvider } from 'components/auth/AuthContext';
 import AuthenticatedRoute from 'components/auth/AuthenticatedRoute';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
-setupInterceptors(); // 전역 설정 딱 한 번!
+setupInterceptors();
 
 function App() {
 
   return (
     <div className='app'>
-      
+    <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
         <AuthProvider>
             <Router>
                 <Routes>
@@ -50,6 +51,7 @@ function App() {
                 </Routes>
             </Router>
         </AuthProvider>
+    </GoogleOAuthProvider>
     </div>
   );
 }
