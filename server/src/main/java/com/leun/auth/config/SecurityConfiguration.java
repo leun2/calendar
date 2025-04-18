@@ -54,7 +54,7 @@ public class SecurityConfiguration {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(
-            Arrays.asList("http://localhost:3000", "http://calendar-front-dev.s3-website.ap-northeast-2.amazonaws.com")); // React 앱 도메인
+            Arrays.asList("http://localhost:3000", "http://calendar-front-dev.s3-website.ap-northeast-2.amazonaws.com", "http://calendar.io.kr"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
         configuration.setAllowCredentials(true);
