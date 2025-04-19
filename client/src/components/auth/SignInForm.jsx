@@ -36,8 +36,6 @@ function SignInForm({ onPrev, email }) {
         }),
         onSubmit: async (values) => {
 
-            console.log(email + " " + values.password)
-
             const success = await authContext.login(email, values.password)
             if (success) navigate('/');
             else {
