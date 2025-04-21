@@ -1,0 +1,108 @@
+## Local
+#
+#spring:
+#  config:
+#    import: optional:classpath:.env[.properties]
+#  devtools:
+#    livereload:
+#      enabled: true
+#    restart:
+#      enabled: true
+#
+#  thymeleaf:
+#    cache: false
+#
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/calendar
+#    username: root
+#    password: 1234
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#
+#  sql:
+#    init:
+#      mode: never
+#
+#  jpa:
+#    hibernate:
+#      ddl-auto: create
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+#        dialect: org.hibernate.dialect.MySQLDialect
+#    defer-datasource-initialization: true
+#
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          google:
+#            client-id: ${GOOGLE_CLIENT_ID}
+#            client-secret: ${GOOGLE_CLIENT_SECRET}
+#            redirect-uri: ${GOOGLE_REDIRECT_URI}
+#            scope:
+#              - email
+#              - profile
+#
+#logging:
+#  level:
+#    root: info
+#    org.springframework: info
+#    org.hibernate.SQL: debug
+#    org.hibernate.orm.jdbc.bind: trace
+#    org.hibernate.type.descriptor.sql.BasicBinder: trace
+#
+#jwt:
+#  secret: ${JWT_SECRET_KEY}
+
+## Deploy
+#
+#server:
+#  port: 5000
+#
+#spring:
+#  devtools:
+#    livereload:
+#      enabled: false
+#    restart:
+#      enabled: false
+#
+#  thymeleaf:
+#    cache: true
+#
+#  datasource:
+#    url: jdbc:mysql://${RDS_HOSTNAME}:${RDS_PORT}/${RDS_DB_NAME}
+#    username: ${RDS_USERNAME}
+#    password: ${RDS_PASSWORD}
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#
+#  sql:
+#    init:
+#      mode: never
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: false
+#    database-platform: org.hibernate.dialect.MySQL8Dialect
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          google:
+#            client-id: ${GOOGLE_CLIENT_ID}
+#            client-secret: ${GOOGLE_CLIENT_SECRET}
+#            redirect-uri: ${GOOGLE_REDIRECT_URI}
+#            scope:
+#              - email
+#              - profile
+#
+#logging:
+#  level:
+#    root: info
+#    org.springframework: info
+#    org.hibernate.SQL: info
+#    org.hibernate.orm.jdbc.bind: info
+#    org.hibernate.type.descriptor.sql.BasicBinder: info
+#
+#jwt:
+#  secret: ${JWT_SECRET_KEY}
