@@ -2,6 +2,8 @@
 
 A full-stack calendar application featuring user authentication, event scheduling, and responsive UI.
 
+https://calendar.io.kr/
+
 ## 🛠️ Tech Stack
 
 - **Frontend**: React, TypeScript, CSS
