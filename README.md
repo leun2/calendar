@@ -1,7 +1,11 @@
 # calendar
 
-A full-stack calendar application featuring user authentication, event scheduling, and responsive UI.
-<br>
+### A full-stack calendar application featuring user authentication, event scheduling, and responsive UI.
+
+[https://calendar.leun2.com](https://calendar.leun2.com)
+
+## Feature Preview
+
 <img src="https://calendar-front-dev.s3.ap-northeast-2.amazonaws.com/images/signIn.gif" width="400"/>
 <img src="https://calendar-front-dev.s3.ap-northeast-2.amazonaws.com/images/viewselector.gif" width="400"/>
 <br>
