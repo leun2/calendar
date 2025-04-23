@@ -105,7 +105,7 @@ The following are required to build and run the project:
         # JWT Secret (Used in application.yml's 'Local' section)
         JWT_SECRET_KEY=a_long_and_secure_JWT_Secret_Key
         ```
-    **⚠️ Important:** The `.env` file contains sensitive information like credentials and secrets. **Make sure to add `src/main/resources/.env` to your `.gitignore` file** located in the `server` directory to prevent it from being committed to your Git repository.
+    **Important:** The `.env` file contains sensitive information like credentials and secrets. **Make sure to add `src/main/resources/.env` to your `.gitignore` file** located in the `server` directory to prevent it from being committed to your Git repository.
 4.  Run the application using Gradle.
     ```bash
     cd server
