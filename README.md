@@ -1,8 +1,16 @@
-# 📅 Calendar Project
+# calendar
 
 A full-stack calendar application featuring user authentication, event scheduling, and responsive UI.
 
-https://calendar.io.kr/
+| 로그인 화면 | 일정 생성 |
+|-------------|------------|
+| ![Login]([./images/login.gif](https://calendar-front-dev.s3.ap-northeast-2.amazonaws.com/images/signin.gif)) | ![Schedule](./images/schedule.gif) |
+
+| 모바일 반응형 | 메인 캘린더 |
+|----------------|--------------|
+| ![Mobile](./images/mobile.gif) | ![Calendar](./images/calendar.gif) |
+
+
 
 ## 🛠️ Tech Stack
 
