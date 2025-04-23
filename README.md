@@ -4,7 +4,7 @@
 
 [https://calendar.leun2.com](https://calendar.leun2.com)
 
-## Feature Preview
+## Preview
 
 <img src="https://calendar-front-dev.s3.ap-northeast-2.amazonaws.com/images/signIn.gif" width="400"/>
 <img src="https://calendar-front-dev.s3.ap-northeast-2.amazonaws.com/images/viewselector.gif" width="400"/>
@@ -12,18 +12,22 @@
 <img src="https://calendar-front-dev.s3.ap-northeast-2.amazonaws.com/images/createEvent.gif" width="400"/>
 <img src="https://calendar-front-dev.s3.ap-northeast-2.amazonaws.com/images/eventDetails.gif" width="400"/>
 
+## Features
+
+- [x] User login with JWT & OAuth2
+- [x] Basic calendar UI
+- [x] Event scheduling
+- [x] Mobile responsiveness
+- [ ] Recurring events *(coming soon)*
+- [ ] Email notifications *(planned)*
+- [ ] Shared calendars *(TBD)*
+
 ## Tech Stack
 
-- **Frontend**: React, TypeScript, CSS
-- **Backend**: Spring Boot, Java
-- **Authentication**: JWT
-- **Database**: JPA
-
-## Project Structure
-
-calendar/ 
-<br>├── client/ # Frontend application
-<br>└── server/ # Backend application
+- **Frontend**: React, TypeScript, MUI
+- **Backend**: Spring Boot, Java, JPA (Hibernate), Spring Security, JWT, OAuth2
+- **Database**: MySQL (via RDS)
+- **Infra**: AWS (S3, CloudFront, Elastic Beanstalk)
 
 ## Getting Started
 
