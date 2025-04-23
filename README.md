@@ -5,21 +5,16 @@ Supports JWT & OAuth2 login, event scheduling, and a fully responsive UI.
 
 [https://calendar.leun2.com](https://calendar.leun2.com)
 
----
-
 ## Preview
 
 <div align="center">
   <img src="https://calendar-front-dev.s3.ap-northeast-2.amazonaws.com/images/signIn.gif" width="400"/>
   <img src="https://calendar-front-dev.s3.ap-northeast-2.amazonaws.com/images/viewselector.gif" width="400"/>
 </div>
-<br>
 <div align="center">
   <img src="https://calendar-front-dev.s3.ap-northeast-2.amazonaws.com/images/createEvent.gif" width="400"/>
   <img src="https://calendar-front-dev.s3.ap-northeast-2.amazonaws.com/images/eventDetails.gif" width="400"/>
 </div>
-
----
 
 ## Features
 
@@ -39,7 +34,7 @@ Supports JWT & OAuth2 login, event scheduling, and a fully responsive UI.
 - **Database**: MySQL (via RDS)
 - **Infra**: AWS (S3, CloudFront, Elastic Beanstalk)
 
-## ⚙️ Tech Stack
+## Tech Stack
 
 ### Frontend
 - React + TypeScript
