@@ -31,9 +31,7 @@ Take a look at the project's core features in action.
 
 ## Website
 
-You can try out the currently deployed version at the <a href="https://calendar.leun2.com">link</a> below.
-
-[Website](https://calendar.leun2.com)
+Check out the deployed version [here](https://calendar.io.kr).
 
 ## Features
 
