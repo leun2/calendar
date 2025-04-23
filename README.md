@@ -1,9 +1,8 @@
 # calendar
 
 A full-stack calendar application featuring user authentication, event scheduling, and responsive UI.
-| 로그인 화면 | 일정 생성 |
-|-------------|------------|
-| ![SignIn](https://calendar-front-dev.s3.ap-northeast-2.amazonaws.com/images/signup.gif) | ![SignUp](https://calendar-front-dev.s3.ap-northeast-2.amazonaws.com/images/signin.gif) |
+ ![SignIn](https://calendar-front-dev.s3.ap-northeast-2.amazonaws.com/images/signup.gif) 
+ ![SignUp](https://calendar-front-dev.s3.ap-northeast-2.amazonaws.com/images/signin.gif) 
 
 
 |----------------|--------------|
