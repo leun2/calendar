@@ -1,6 +1,8 @@
 # calendar
 
 A full-stack calendar application featuring user authentication, event scheduling, and responsive UI.
+<img src="https://calendar-front-dev.s3.ap-northeast-2.amazonaws.com/images/signup.gif" width="500"/>
+<img src="https://calendar-front-dev.s3.ap-northeast-2.amazonaws.com/images/signin.gif" width="500"/>
  ![SignIn](https://calendar-front-dev.s3.ap-northeast-2.amazonaws.com/images/signup.gif) 
  ![SignUp](https://calendar-front-dev.s3.ap-northeast-2.amazonaws.com/images/signin.gif) 
 
