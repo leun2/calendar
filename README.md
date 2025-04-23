@@ -83,37 +83,30 @@ The following are required to build and run the project:
 ### Backend
 
 1.  Navigate to the `server` directory.
-2.  **Configure Database Connection in application.yml:**
-    * Prepare your local MySQL database instance.
-    * Open the `server/src/main/resources/application.yml` file and locate the `Local` section.
-    * **Important:** Ensure that the `spring.datasource` settings within this section are configured to read database credentials from environment variables using placeholders, like this:
-        ```yaml
-        spring:
-          # ... other settings ...
-          datasource:
-            url: jdbc:mysql://localhost:3306/${DB_NAME} # Or your MySQL host
-            username: ${DB_USERNAME}
-            password: ${DB_PASSWORD}
-            driver-class-name: com.mysql.cj.jdbc.Driver
-          # ... rest of Local section ...
-        ```
-    * If it's not already configured this way, modify it to use placeholders so credentials can be loaded from your `.env` file.
+2.  **Configure Local Settings in application.yml:**
+    * Navigate to `server/src/main/resources/application.yml`.
+    * Find the section commented with `# Local`. This block contains all configuration specifically for the local development environment, including database settings, OAuth keys, and JWT secret.
+    * Uncomment the entire `# Local` block by removing the `#` symbol from the beginning of each line within that block. This enables the local configuration profile which is set up to read values from environment variables using `${...}` syntax.
 3.  **Set Up Environment Variables (.env):**
-    * Sensitive information and database credentials will be loaded from environment variables, typically provided via a `.env` file during local development (thanks to `spring.config.import` in your `application.yml`).
+    * The local configuration enabled in Step 2 reads all necessary settings (database credentials, OAuth2 keys, JWT secret) from environment variables, typically provided via a `.env` file during local development (thanks to `spring.config.import` in your `application.yml`).
     * Create or open the `.env` file located in the `server/src/main/resources` directory.
-    * Add or verify the necessary variables in the following format, filling in your actual details:
+    * Add the following variables to the `.env` file, filling in your actual details for your local MySQL database and application secrets:
         ```dotenv
-        # Database Credentials (ensure application.yml uses placeholders like ${DB_NAME})
+        # Database Credentials (Used in application.yml's 'Local' section)
         DB_NAME=your_local_database_name # e.g., calendar
         DB_USERNAME=your_local_database_user
         DB_PASSWORD=your_local_database_password
 
-        # OAuth2 & JWT Secrets
+        # OAuth2 Credentials (Used in application.yml's 'Local' section)
         GOOGLE_CLIENT_ID=your_Google_Client_ID
         GOOGLE_CLIENT_SECRET=your_Google_Client_Secret
         GOOGLE_REDIRECT_URI=your_Google_Redirect_URI  # e.g., http://localhost:8080/login/oauth2/code/google
+
+        # JWT Secret (Used in application.yml's 'Local' section)
         JWT_SECRET_KEY=a_long_and_secure_JWT_Secret_Key
         ```
+
+    **⚠️ Important Security Note:** The `.env` file contains sensitive information like credentials and secrets. **Make sure to add `src/main/resources/.env` to your `.gitignore` file** located in the `server` directory to prevent it from being committed to your Git repository.
 4.  Run the application using Gradle.
     ```bash
     cd server
