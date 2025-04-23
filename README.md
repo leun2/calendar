@@ -3,7 +3,7 @@
 A full-stack calendar application featuring user authentication, event scheduling, and responsive UI.
 
 |-------------|------------|
-| ![SignIn]([./images/schedule.gif](https://calendar-front-dev.s3.ap-northeast-2.amazonaws.com/images/signup.gif)) | ![SignUp](https://calendar-front-dev.s3.ap-northeast-2.amazonaws.com/images/signin.gif) |
+| ![SignIn](https://calendar-front-dev.s3.ap-northeast-2.amazonaws.com/images/signup.gif) | ![SignUp](https://calendar-front-dev.s3.ap-northeast-2.amazonaws.com/images/signin.gif) |
 
 
 |----------------|--------------|
