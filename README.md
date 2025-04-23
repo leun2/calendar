@@ -1,7 +1,13 @@
 # calendar
 
- A full-stack calendar application featuring user authentication, event scheduling, and responsive UI.
+A web-based calendar app inspired by Google Calendar.  
+Supports JWT & OAuth2 login, event scheduling, and a fully responsive UI.
 
+[https://calendar.leun2.com](https://calendar.leun2.com)
+
+---
+
+## Preview
 
 <div align="center">
   <img src="https://calendar-front-dev.s3.ap-northeast-2.amazonaws.com/images/signIn.gif" width="400"/>
@@ -13,15 +19,18 @@
   <img src="https://calendar-front-dev.s3.ap-northeast-2.amazonaws.com/images/eventDetails.gif" width="400"/>
 </div>
 
+---
+
 ## Features
 
 - [x] User login with JWT & OAuth2
 - [x] Basic calendar UI
 - [x] Event scheduling
-- [x] Mobile responsiveness
-- [ ] Recurring events *(coming soon)*
-- [ ] Email notifications *(planned)*
+- [ ] Mobile responsiveness *(planned)*
 - [ ] Shared calendars *(TBD)*
+- [ ] Push notifications *(TBD)*
+
+---
 
 ## Tech Stack
 
@@ -29,6 +38,25 @@
 - **Backend**: Spring Boot, Java, JPA (Hibernate), Spring Security, JWT, OAuth2
 - **Database**: MySQL (via RDS)
 - **Infra**: AWS (S3, CloudFront, Elastic Beanstalk)
+
+## ⚙️ Tech Stack
+
+### Frontend
+- React + TypeScript
+- Tailwind CSS
+- MUI (Material UI)
+- Recoil
+
+### Backend
+- Spring Boot
+- Spring Security (JWT, OAuth2)
+- **JPA (Hibernate)**
+- MySQL (AWS RDS)
+
+### DevOps / Infra
+- AWS S3 (static assets)
+- AWS CloudFront (CDN)
+- AWS Elastic Beanstalk (deployment)
 
 ## Getting Started
 
