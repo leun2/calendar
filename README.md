@@ -83,21 +83,38 @@ The following are required to build and run the project:
 ### Backend
 
 1.  Navigate to the `server` directory.
-2.  **Configure Database Connection:**
-    * Prepare a local MySQL database instance.
+2.  **Configure Database Connection in application.yml:**
+    * Prepare your local MySQL database instance.
     * Open the `server/src/main/resources/application.yml` file and locate the `Local` section.
-    * Verify or modify the `spring.datasource` settings (URL, username, password) in this section to match your local MySQL database configuration. (Defaults are `jdbc:mysql://localhost:3306/calendar` / `root` / `1234`)
+    * **Important:** Ensure that the `spring.datasource` settings within this section are configured to read database credentials from environment variables using placeholders, like this:
+        ```yaml
+        spring:
+          # ... other settings ...
+          datasource:
+            url: jdbc:mysql://localhost:3306/${DB_NAME} # Or your MySQL host
+            username: ${DB_USERNAME}
+            password: ${DB_PASSWORD}
+            driver-class-name: com.mysql.cj.jdbc.Driver
+          # ... rest of Local section ...
+        ```
+    * If it's not already configured this way, modify it to use placeholders so credentials can be loaded from your `.env` file.
 3.  **Set Up Environment Variables (.env):**
-    * Sensitive information like OAuth2 Client ID/Secret and JWT Secret is loaded from environment variables.
-    * Create a `.env` file in the `server` directory if it doesn't exist.
-    * Add the necessary variables to the `.env` file in the following format:
+    * Sensitive information and database credentials will be loaded from environment variables, typically provided via a `.env` file during local development (thanks to `spring.config.import` in your `application.yml`).
+    * Create or open the `.env` file located in the `server/src/main/resources` directory.
+    * Add or verify the necessary variables in the following format, filling in your actual details:
         ```dotenv
+        # Database Credentials (ensure application.yml uses placeholders like ${DB_NAME})
+        DB_NAME=your_local_database_name # e.g., calendar
+        DB_USERNAME=your_local_database_user
+        DB_PASSWORD=your_local_database_password
+
+        # OAuth2 & JWT Secrets
         GOOGLE_CLIENT_ID=your_Google_Client_ID
         GOOGLE_CLIENT_SECRET=your_Google_Client_Secret
         GOOGLE_REDIRECT_URI=your_Google_Redirect_URI  # e.g., http://localhost:8080/login/oauth2/code/google
         JWT_SECRET_KEY=a_long_and_secure_JWT_Secret_Key
         ```
-3.  Run the application using Gradle.
+4.  Run the application using Gradle.
     ```bash
     cd server
     ./gradlew bootRun
