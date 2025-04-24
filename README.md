@@ -10,21 +10,21 @@ Take a look at the project's core features in action.
 
 <div align="center">
   <img 
-    src="https://calendar-front-dev.s3.ap-northeast-2.amazonaws.com/images/signIn.gif" 
+    src="https://calendar.io.kr/images/signIn.gif" 
     width="400" 
     alt="Sign In"/>
   <img 
-    src="https://calendar-front-dev.s3.ap-northeast-2.amazonaws.com/images/viewselector.gif" 
+    src="https://calendar.io.kr/images/viewselector.gif" 
     width="400" 
     alt="View Select"/>
 </div>
 <div align="center">
   <img 
-    src="https://calendar-front-dev.s3.ap-northeast-2.amazonaws.com/images/createEvent.gif" 
+    src="https://calendar.io.kr/images/createEvent.gif" 
     width="400" 
     alt="Create Event"/>
   <img 
-    src="https://calendar-front-dev.s3.ap-northeast-2.amazonaws.com/images/eventDetails.gif" 
+    src="https://calendar.io.kr/images/eventDetails.gif" 
     width="400"
     alt="Delete Event" />
 </div>
