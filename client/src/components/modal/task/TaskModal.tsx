@@ -6,14 +6,14 @@ import EventModalTimeDropDown from "components/modal/event/EventModalTimeDropDow
 import EventModalDescriptionInput from "components/modal/event/EventModalDescriptionInput";
 
 interface TaskModalProps {
-    year: number;
-    month: number;
-    day: number;
+    modalYear: number;
+    modalMonth: number;
+    modalDay: number;
     activeModal: "event" | "task" | null;
     setActiveModal: (type: "event" | "task" | null) => void;
 }
 
-function TaskModal({ year, month, day, activeModal, setActiveModal }: TaskModalProps) {
+function TaskModal({modalYear, modalMonth, modalDay, activeModal, setActiveModal }: TaskModalProps) {
 
         const [isScheduleOpen, setSchedule] = useState(false);
         const [isDescriptionOpen, setDescriptionState] = useState(false);
@@ -31,11 +31,7 @@ function TaskModal({ year, month, day, activeModal, setActiveModal }: TaskModalP
         };
     
     
-        const date = new Date(
-            year && month && day
-                ? `${year}-${month}-${day}`
-                : new Date().toLocaleDateString()
-        );
+        const date = new Date(`${modalYear}-${modalMonth}-${modalDay}`);
     
         const dayOfTheWeek = [
             "일",

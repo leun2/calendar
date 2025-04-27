@@ -6,11 +6,12 @@ import EventModalGuestInput from "components/modal/event/EventModalGuestInput";
 import EventModalDescriptionInput from "components/modal/event/EventModalDescriptionInput";
 import EventModalColorDropDown from "components/modal/event/EventModalColorDropDown";
 import { createEventApi } from "api/eventApi";
+import { useAuth } from "components/auth/AuthContext";
 
 interface EventModalProps {
-    year: number;
-    month: number;
-    day: number;
+    modalYear: number;
+    modalMonth: number;
+    modalDay: number;
     activeModal: "event" | "task" | null;
     setActiveModal: (type: "event" | "task" | null) => void;
     refreshEvents: () => void;
@@ -25,7 +26,7 @@ interface EventRequestDto {
     color: string;
 }
 
-function EventModal({ year, month, day, activeModal, setActiveModal, refreshEvents }: EventModalProps) {
+function EventModal({ modalYear, modalMonth, modalDay, activeModal, setActiveModal, refreshEvents }: EventModalProps) {
     const modalRef = useRef<HTMLDivElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
 
@@ -39,6 +40,8 @@ function EventModal({ year, month, day, activeModal, setActiveModal, refreshEven
     const [isStartTimeOpen, setStartTimeDropDown] = useState(false);
     const [isColorDropDownOpen, setColorDropDownState] = useState(false);
     const [isEndTimeOpen, setEndTimeDropDown] = useState(false);
+
+    const { authState } = useAuth();
 
     const handleDateScheduleClick = () => {
         setDateSchedule((prev) => !prev);
@@ -65,11 +68,7 @@ function EventModal({ year, month, day, activeModal, setActiveModal, refreshEven
         setEndTimeDropDown(false)
     }
 
-    const date = new Date(
-        year && month && day
-            ? `${year}-${month}-${day}`
-            : new Date().toLocaleDateString()
-    );
+    const date = new Date(`${modalYear}-${modalMonth}-${modalDay}`);
 
     const dayOfTheWeek = [
         "일",
@@ -518,7 +517,7 @@ function EventModal({ year, month, day, activeModal, setActiveModal, refreshEven
                                     <button className="event-modal-form-event-status-button" onClick={() => setEventStatusState(true)}>
                                         <div style={{ width:"100%", height:"100%"}}>
                                             <div style={{ width:"100%", height:"45%", display:"flex", alignContent:"center"}}>
-                                                <span style={{fontSize:"15px"}}>{name}</span>
+                                                <span style={{fontSize:"15px"}}>{authState.name}</span>
                                                 <div style={{ 
                                                     width:"14px", 
                                                     height:"14px", 
