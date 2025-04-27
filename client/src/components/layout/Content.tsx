@@ -51,6 +51,12 @@ const Content: React.FC<ContentProps> = ({ viewType, year, month, day, activeMod
     const [events, setEvents] = useState<EventDetails[]>([]);
     const [tasks, setTasks] = useState<TaskDetails[]>([]);
 
+    const [modalDate, setModalDate] = useState({
+        modalYear: year,
+        modalMonth: month,
+        modalDay: day
+    });
+
     const getEvents = useCallback(() => {
         getEventsByUnitWithDate(viewType, year, month, day)
             .then(response => {
@@ -61,10 +67,14 @@ const Content: React.FC<ContentProps> = ({ viewType, year, month, day, activeMod
             .catch((error) => errorResponse(error));
     }, [viewType, year, month, day]);
 
-    useEffect(() => 
-        getEvents()
-    , [viewType, year, month, day]);
-    
+    useEffect(() => {
+        getEvents();
+        setModalDate({ modalYear: year, 
+                    modalMonth:month, 
+                    modalDay:day });
+        console.log(modalDate.modalYear + " " + modalDate.modalMonth + " " + modalDate.modalDay);
+    }, [viewType, year, month, day]);
+
     function errorResponse(error:any) {
         console.log(error)
     }
@@ -73,14 +83,20 @@ const Content: React.FC<ContentProps> = ({ viewType, year, month, day, activeMod
         <div className="content">
             {activeModal === "event" && 
                 <EventModal 
-                    year={year} 
-                    month={month} 
-                    day={day} 
+                    modalYear={modalDate.modalYear} 
+                    modalMonth={modalDate.modalMonth} 
+                    modalDay={modalDate.modalDay} 
                     setActiveModal={setActiveModal} 
                     activeModal={activeModal}
                     refreshEvents={getEvents} />} 
 
-            {activeModal === "task" && <TaskModal year={year} month={month} day={day} setActiveModal={setActiveModal} activeModal={activeModal}/>} 
+            {activeModal === "task" && 
+                <TaskModal 
+                    modalYear={modalDate.modalYear} 
+                    modalMonth={modalDate.modalMonth} 
+                    modalDay={modalDate.modalDay} 
+                    setActiveModal={setActiveModal} 
+                    activeModal={activeModal}/>} 
             
             {detailsModal.isOpen && (
                 <>
@@ -112,7 +128,9 @@ const Content: React.FC<ContentProps> = ({ viewType, year, month, day, activeMod
                     year={year} 
                     month={month} 
                     day={day} 
-                    setModalDetails={setDetailsModal} />}
+                    setActiveModal={setActiveModal} 
+                    setModalDetails={setDetailsModal}
+                    setModalDate={setModalDate} />}
 
             {viewType === "week" && 
                 <CalendarByWeek 
@@ -121,7 +139,9 @@ const Content: React.FC<ContentProps> = ({ viewType, year, month, day, activeMod
                     year={year} 
                     month={month} 
                     day={day} 
-                    setModalDetails={setDetailsModal} />}
+                    setActiveModal={setActiveModal} 
+                    setModalDetails={setDetailsModal}
+                    setModalDate={setModalDate} />}
 
             {viewType === "month" && 
                 <CalendarByMonth 
@@ -130,9 +150,15 @@ const Content: React.FC<ContentProps> = ({ viewType, year, month, day, activeMod
                     year={year} 
                     month={month} 
                     day={day}
-                    setModalDetails={setDetailsModal} />}
+                    setActiveModal={setActiveModal} 
+                    setModalDetails={setDetailsModal}
+                    setModalDate={setModalDate} />}
                     
-            {viewType === "year" && <CalendarByYear year={year} month={month} day={day} />}
+            {viewType === "year" && 
+                <CalendarByYear 
+                    year={year} 
+                    month={month} 
+                    day={day} />}
         </div>
     );
 };
