@@ -75,38 +75,53 @@ function AuthProvider({ children }) {
         }
     };
 
-    async function loginWithGoogle(credential) {
+    async function loginWithGoogle(authCode) {
         try {
-            const response = await apiClient.post('/v1/auth/google/login', { credential });
-            if (response?.status === 200) {
-                const jwt = "Bearer " + response.data.token;
-                localStorage.setItem("jwt", jwt);
-                localStorage.setItem("user", JSON.stringify({
-                    name: response.data.name,
-                    image: response.data.image,
-                    language: response.data.setting.language,
-                    country: response.data.setting.country,
-                    timezone: response.data.setting.timezone
-                }));
+            console.log('🔑 Google Auth Code to send to backend:', authCode);
+            console.log('🔍 Type of code:', typeof authCode);
 
-                setAuthState({
-                    isAuthenticated: true,
-                    name: response.data.name,
-                    token: jwt,
-                    settings: {
-                        language: response.data.language,
-                        country: response.data.country,
-                        timezone: response.data.timezone
-                    }
-                });
-                return true;
+            const response = await apiClient.post('/v1/auth/google/login', { code: authCode });
+
+            if (response?.status === 200) {
+                 console.log('Backend Google login successful:', response.data);
+
+                 const jwt = "Bearer " + response.data.token;
+                 localStorage.setItem("jwt", jwt);
+
+                 const userData = {
+                     name: response.data.name,
+                     image: response.data.image,
+                     language: response.data.settings?.language, 
+                     country: response.data.settings?.country,
+                     timezone: response.data.settings?.timezone
+                 };
+                 localStorage.setItem("user", JSON.stringify(userData));
+
+
+                 setAuthState({
+                     isAuthenticated: true,
+                     name: userData.name,
+                     token: jwt,
+                     settings: {
+                         language: userData.language,
+                         country: userData.country,
+                         timezone: userData.timezone
+                     }
+                 });
+                 return true; // 로그인 성공
             } else {
-                console.error('Google 로그인 실패:', response?.data?.message || '알 수 없는 오류');
-                return false;
+                console.error('Google 로그인 실패 (백엔드 응답 오류):', response?.data?.message || '알 수 없는 오류');
+                // TODO: 사용자에게 에러 알림
+                return false; // 로그인 실패
             }
         } catch (error) {
-            console.error('Google 로그인 요청 에러:', error);
-            return false;
+            console.error('Google 로그인 요청 에러 (백엔드 통신 중 오류):', error);
+             if (error.response) {
+                 console.error('Backend response data:', error.response.data);
+                 console.error('Backend response status:', error.response.status);
+            }
+            // TODO: 사용자에게 에러 알림
+            return false; // 로그인 실패
         }
     };
 
