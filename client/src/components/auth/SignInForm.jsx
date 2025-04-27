@@ -37,7 +37,7 @@ function SignInForm({ onPrev, email }) {
         onSubmit: async (values) => {
 
             const success = await authContext.login(email, values.password)
-            if (success) navigate('/');
+            if (success) navigate('/day');
             else {
                 formik.setErrors({
                     password: '아이디 또는 비밀번호가 잘못 되었습니다. 아이디와 비밀번호를 정확히 입력해 주세요'
