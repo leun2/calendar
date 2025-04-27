@@ -21,7 +21,7 @@ function App() {
                 <Routes>
                     <Route 
                         path="/" 
-                        element={<Navigate replace to="/day" />} />
+                        element={<Navigate replace to="/signin" />} />
 
                     <Route 
                         path="/:viewType" 
@@ -47,7 +47,7 @@ function App() {
 
                     <Route path="/signup" element={<SignUp />} />
 
-                    <Route path='*' element={<Error />} />
+                    <Route path='*' element={<SignIn />} />
                 </Routes>
             </Router>
         </AuthProvider>
