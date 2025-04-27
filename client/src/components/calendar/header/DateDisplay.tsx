@@ -45,7 +45,7 @@ const DateDisplay: React.FC = () => {
   }
 
   return (
-    <div>
+    <div style={{minWidth:"250px"}}>
       <span>{displayText}</span>
     </div>
   );
