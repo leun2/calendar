@@ -41,7 +41,7 @@ public class SecurityConfiguration {
             )
             .formLogin(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/v1/auth/login", "/v1/ping", "/v1/user", "/v1/auth/google/login").permitAll()
+                .requestMatchers("/v1/auth/login", "/v1/ping", "/v1/user", "/v1/auth/google/login", "/health").permitAll()
                 .anyRequest().authenticated())
             .addFilterBefore(
                 new JwtAuthenticationFilter(jwtUtil, userDetailsService),
