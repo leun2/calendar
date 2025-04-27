@@ -8,6 +8,8 @@ interface CalendarProps {
     month: number;
     day: number;
     setModalDetails: any;
+    setActiveModal: (type: "event" | "task" | null) => void;
+    setModalDate: (date: { modalYear: number; modalMonth: number; modalDay: number }) => void;
 }
 
 interface EventDetails {
@@ -32,7 +34,7 @@ interface TaskDetails {
 
 type ColorGroup = Array<Record<string, string>>;
 
-const CalendarByDay: React.FC <CalendarProps> = ({events, year, month, day, setModalDetails }) => {
+const CalendarByDay: React.FC <CalendarProps> = ({events, year, month, day, setModalDetails, setActiveModal, setModalDate }) => {
 
   const date = new Date(
     year && month && day
@@ -188,6 +190,15 @@ const formatTimeRange = (start?: string, end?: string) => {
     return `${h1}:${m1} ~ ${h2}:${m2}`;
   };
 
+  function handleContentClick() {
+      setModalDate({
+        modalYear: year,
+        modalMonth: month,
+        modalDay: day,
+      });
+      setActiveModal("event");
+  }
+
   return (
     <div className="day-calendar">
       <div className="day-calendar-header">
@@ -336,12 +347,12 @@ const formatTimeRange = (start?: string, end?: string) => {
                           className="current-time-ball"
                           style={{ top: `${getHourIndex(timeString) * 40 + 5}px` }}
                         />
-                        <div className="quarter" />
+                        <div className="quarter" onClick={handleContentClick}/>
                         <div className="current-time" />
                       </div>
                     ) : (
                       <div>
-                        <div className="quarter" />
+                        <div className="quarter" onClick={handleContentClick}/>
                       </div>
                     )}
                   </div>

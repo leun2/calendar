@@ -9,6 +9,8 @@ interface CalendarProps {
     month: number;
     day: number;
     setModalDetails: any;
+    setActiveModal: (type: "event" | "task" | null) => void;
+    setModalDate: (date: { modalYear: number; modalMonth: number; modalDay: number }) => void;
 }
 
 interface EventDetails {
@@ -34,7 +36,7 @@ interface TaskDetails {
 
 type ColorGroup = Array<Record<string, string>>;
 
-const CalendarByMonth: React.FC <CalendarProps> = ({ events, tasks, year, month, day, setModalDetails }) => {
+const CalendarByMonth: React.FC <CalendarProps> = ({ events, tasks, year, month, day, setModalDetails, setActiveModal, setModalDate }) => {
     const navigate = useNavigate();
 
     const currentDate = new Date(year, month - 1, day);
@@ -103,12 +105,22 @@ const CalendarByMonth: React.FC <CalendarProps> = ({ events, tasks, year, month,
         return "#ccc"; // 혹시 못 찾았을 경우 기본 색상
     };
 
-    function handleEventClick(event: any) {
+    function handleEventClick(event: any, e: any) {
+        e.stopPropagation(); 
         setModalDetails({
           isOpen: true,
           type: "event",
           data: event
         });
+    }
+
+    function handleContentClick(year : number, month : number, day : number) {
+        setModalDate({
+            modalYear: year,
+            modalMonth: month,
+            modalDay: day,
+        });
+        setActiveModal("event");
     }
 
     return (
@@ -138,8 +150,9 @@ const CalendarByMonth: React.FC <CalendarProps> = ({ events, tasks, year, month,
                                                 date.toDateString() === today.toDateString() ? 
                                                     "first-day-today" : "first-day" 
                                                 : ""}`} 
-                                            onClick={() => handleDateClick(date)}>
-                                                <span>
+                                            onClick={() => handleDateClick(date)}
+                                            style={{ maxHeight:"22px", minWidth:"22px"}}>
+                                                <span >
                                                     {date.getDate() === 1 ? 
                                                         date.toDateString() === today.toDateString() ? 
                                                             day
@@ -149,12 +162,12 @@ const CalendarByMonth: React.FC <CalendarProps> = ({ events, tasks, year, month,
                                                 </span>
                                         </div>
                                     </div>
-                                    <div className="event-container">
+                                    <div className="event-container" onClick={() => handleContentClick(date.getFullYear(), date.getMonth() + 1, date.getDate())}>
                                         {dayEvents.length < 3 ? (
                                             <>
                                                 {dayEvents.slice(0, 2).map(event => (
                                                     <>
-                                                        <div key={event.id} className="event-item" onClick={() => handleEventClick(event)} style={{background: getRgbByColorName(event.color)}}>
+                                                        <div key={event.id} className="event-item" onClick={(e) => handleEventClick(event, e)} style={{background: getRgbByColorName(event.color)}}>
                                                             <span style={{ paddingLeft:"5px"}}>{event.title}</span>
                                                         </div>
                                                         <div style={{ height:"5%"}}/>
@@ -165,7 +178,7 @@ const CalendarByMonth: React.FC <CalendarProps> = ({ events, tasks, year, month,
                                             <>
                                                 {dayEvents.slice(0, 1).map(event => (
 
-                                                    <div key={event.id} className="event-item" onClick={() => handleEventClick(event)}  style={{background: getRgbByColorName(event.color)}}>
+                                                    <div key={event.id} className="event-item" onClick={(e) => handleEventClick(event, e)}  style={{background: getRgbByColorName(event.color)}}>
                                                         <span style={{ paddingLeft:"5px"}} >{event.title}</span>
                                                     </div>
                                                 ))}

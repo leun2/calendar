@@ -8,6 +8,8 @@ interface CalendarProps {
   month: number;
   day: number;
   setModalDetails: any;
+  setActiveModal: (type: "event" | "task" | null) => void;
+  setModalDate: (date: { modalYear: number; modalMonth: number; modalDay: number }) => void;
 }
 
 interface EventDetails {
@@ -33,10 +35,10 @@ interface TaskDetails {
 
 type ColorGroup = Array<Record<string, string>>;
 
-const CalendarByWeek: React.FC <CalendarProps> = ({ events, tasks, year, month, day, setModalDetails }) => {
+const CalendarByWeek: React.FC <CalendarProps> = ({ events, tasks, year, month, day, setModalDetails, setActiveModal, setModalDate }) => {
     const timezone = "GMT+09";
 
-    const date = new Date(
+    const baseDate = new Date(
       year && month && day
         ? `${year}-${month}-${day}`
         : new Date().toLocaleDateString()
@@ -44,22 +46,20 @@ const CalendarByWeek: React.FC <CalendarProps> = ({ events, tasks, year, month, 
 
     const dayOfTheWeek = ["일", "월", "화", "수", "목", "금", "토"];
 
-    const dateIndex = date.getDay();
-    const today = new Date();
-
-    
+    const dateIndex = baseDate.getDay();
+    const currentDate = new Date();
 
     const weekDays = Array.from({ length: 7 }, (_, i) => {
-      const newDate = new Date(date);
-      newDate.setDate(date.getDate() - dateIndex + i); // 이번 주의 해당 요일 날짜 계산
-      return {
-        day: dayOfTheWeek[i], // 요일
-        date: newDate.getDate(), // 날짜
-        isToday:
-          newDate.getFullYear() === today.getFullYear() &&
-          newDate.getMonth() === today.getMonth() &&
-          newDate.getDate() === today.getDate()
-      };
+        const dateObj = new Date(baseDate);
+        dateObj.setDate(baseDate.getDate() - dateIndex + i);
+        return {
+          dayLabel: dayOfTheWeek[i],
+          fullDate: dateObj,
+          isToday:
+            dateObj.getFullYear() === currentDate.getFullYear() &&
+            dateObj.getMonth() === currentDate.getMonth() &&
+            dateObj.getDate() === currentDate.getDate(),
+        };
     });
 
     const quarter = ["15", "30", "45", "00"];
@@ -162,6 +162,15 @@ const getRgbByColorName = (name: string): string => {
 		return `${h1}:${m1} ~ ${h2}:${m2}`;
 	};
 
+    function handleContentClick(fullDate: Date) {
+        setModalDate({
+            modalYear: fullDate.getFullYear(),
+            modalMonth: fullDate.getMonth() + 1, // JS는 0-based
+            modalDay: fullDate.getDate(),
+          });
+        setActiveModal("event");
+    }
+
   return (
     <div className="week-calendar">
       <div className="week-calendar-header">
@@ -182,15 +191,15 @@ const getRgbByColorName = (name: string): string => {
 
         {/* 이번 주의 날짜 표시 */}
         <div style={{ width: "92%", height: "100%", display: "flex" }}>
-          {weekDays.map(({ day, date, isToday }, index) => (
+          {weekDays.map(({ dayLabel, fullDate, isToday  }, index) => (
             <div style={{display:"flex", width:"14%" }}>
               <div style={{width:"30%", height:"100%"}}/>
               <div key={index} className="week-calendar-day-container">
                 <div className={`week-calendar-day-of-the-week ${isToday ? "week-calendar-day-of-the-week-today" : ""}`}>
-                  {day}
+                  {dayLabel}
                 </div>
                 <div className={`week-calendar-day ${isToday ? "week-calendar-day-today" : ""}`}>
-                  {date}
+                  {fullDate.getDate()}
                 </div>
               </div>
               <div style={{width:"30%", height:"100%"}}/>
@@ -242,13 +251,13 @@ const getRgbByColorName = (name: string): string => {
                         key={event.id}
                         className="week-calendar-event-box"
                         style={{
-							top: topPosition,
-							left: `${leftPosition}%`, // 겹치는 일정 왼쪽으로 배치
-							height: height > 40 ? height : 20,
-							cursor: "pointer",
-							background: getRgbByColorName(event.color),
-							paddingLeft: "5px",
-							paddingTop: !isShortEvent ? "5px" : "",
+                            top: topPosition,
+                            left: `${leftPosition}%`, // 겹치는 일정 왼쪽으로 배치
+                            height: height > 40 ? height : 20,
+                            cursor: "pointer",
+                            background: getRgbByColorName(event.color),
+                            paddingLeft: "5px",
+                            paddingTop: !isShortEvent ? "5px" : "",
                         }}
                         onClick={() => handleEventClick(event)} // 클릭 시 이벤트
                     >
@@ -268,7 +277,7 @@ const getRgbByColorName = (name: string): string => {
                     );
                 })}
 
-                {weekDays.map(({ day, date, isToday }, dayIndex) => (
+                {weekDays.map(({ dayLabel, fullDate, isToday }, dayIndex) => (
                     <div key={dayIndex} className="week-calendar-schedule-container">
                          {hours.map((hour, hourIndex) => (
                             <div key={`${dayIndex}-${hourIndex}`} className="week-calendar-schedule-column">
@@ -287,11 +296,11 @@ const getRgbByColorName = (name: string): string => {
                                             <div className="current-time-container">
                                                 
                                                 <div className="week-calendar-current-time-ball" style={{ top: `${getHourIndex(timeString) * 40 + 5}px`, left: `calc(${dayIndex * 14}% - 5px)` }} />
-                                                <div className="quarter" />
+                                                <div className="quarter" onClick={() =>handleContentClick(fullDate)} />
                                                 <div className="current-time" />
                                             </div>
                                         ) : (
-                                            <div className="quarter" />
+                                            <div className="quarter" onClick={() => handleContentClick(fullDate)} />
                                         )}
                                         </div>
                                     );
