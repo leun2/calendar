@@ -24,3 +24,5 @@ yarn-error.log*
 
 *.png
 .env
+
+*.gif
