@@ -35,14 +35,26 @@ Check out the deployed version [here](https://calendar.io.kr).
 
 ## Features
 
-A list of features supported by the project.
+A list of key functionalities and technical implementations supported by the project.
 
-- [x] **User login with JWT & OAuth2:** Supports standard sign-up as well as easy login using a Google account.
-- [x] **Basic calendar UI:** Provides basic calendar views by day, week, and month.
-- [x] **Event scheduling:** Allows users to create, modify, and delete events.
-- [ ] **Mobile responsiveness:** Responsive UI is under development to provide an optimized layout across various device sizes. (In progress)
-- [ ] **Shared calendars:** Feature to share calendars with other users and manage schedules collaboratively (TBD).
-- [ ] **Push notifications:** Feature for push notifications for event start reminders, etc. (TBD).
+- User Authentication & Management:
+
+  - JWT & OAuth2-based Login: Supports standard user registration via email/password, as well as seamless login through Google social accounts.
+  - RESTful API for User Management: Developed a comprehensive set of RESTful APIs (CRUD operations: Create, Read, Update, Delete) for managing user accounts (e.g., POST /v1/user for registration, GET /v1/user/{id} for retrieval).
+Event & Task Scheduling:
+
+RESTful API for Event & Task Management: Implemented robust RESTful APIs for all CRUD operations related to events and tasks, enabling users to efficiently manage their schedule data.
+Basic Calendar UI: Provides intuitive calendar views by day, week, and month, offering clear visual organization of scheduled items.
+Event Scheduling: Allows users to effortlessly create, modify, and delete events directly within the application.
+User Interface (UI):
+
+Mobile Responsive UI (In Progress): Currently developing a responsive user interface to ensure an optimized layout and experience across various device sizes.
+Planned / Future Features:
+
+Shared Calendars: Future implementation to enable sharing calendars with other users for collaborative schedule management (TBD).
+Push Notifications: Future feature for event start reminders and other timely alerts via push notifications (TBD).
+
+
 
 ## Tech Stack
 
