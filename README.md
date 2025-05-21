@@ -40,7 +40,7 @@ A list of key functionalities and technical implementations supported by the pro
 - User Authentication & Management:
 
   - JWT & OAuth2-based Login: Supports standard user registration via email/password, as well as seamless login through Google social accounts.
-  - RESTful API for User Management: Developed a comprehensive set of RESTful APIs (CRUD operations: Create, Read, Update, Delete) for managing user accounts (e.g., POST /v1/user for registration, GET /v1/user/{id} for retrieval).
+  - RESTful API for User Management: Developed a comprehensive set of RESTful APIs (CRUD operations: Create, Read, Update, Delete) for managing user accounts
 
 - Event & Task Scheduling:
 
